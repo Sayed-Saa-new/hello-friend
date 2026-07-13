@@ -161,7 +161,7 @@ export default async function Home() {
             </GridWrapper>
             <GridWrapper>
               <h2 className="text-center text-3xl font-medium leading-10 tracking-tighter text-text-primary md:mx-auto md:max-w-lg md:text-4xl">
-                My site is a playful sandbox. Explore, experiment, && say hello
+                Explore my work, experiments && say hello
               </h2>
             </GridWrapper>
           </div>
