@@ -12,44 +12,44 @@ type SoftwareDataItem = {
 
 const softwareData: SoftwareDataItem[] = [
   {
-    title: "Raycast",
-    imgSrc: "/raycast_logo.png",
-    link: "https://raycast.com/?via=braydon",
-  },
-  {
-    title: "Arc",
-    imgSrc: "/arc_logo.png",
-    link: "https://arc.net/",
-  },
-  {
     title: "VSCode",
     imgSrc: "/vscode_logo.png",
     link: "https://code.visualstudio.com/",
   },
   {
-    title: "mymind",
-    imgSrc: "/mymind_logo.png",
-    link: "https://mymind.com/",
+    title: "Cursor",
+    imgSrc: "https://cursor.sh/apple-touch-icon.png",
+    link: "https://cursor.sh/",
   },
   {
-    title: "Obsidian",
-    imgSrc: "/obsidian_logo.png",
-    link: "https://obsidian.md/",
+    title: "GitHub",
+    imgSrc: "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+    link: "https://github.com/",
   },
   {
-    title: "Notion",
-    imgSrc: "/notion_logo.png",
-    link: "https://www.notion.so/",
+    title: "ChatGPT",
+    imgSrc: "https://cdn.openai.com/API/logo-openai.svg",
+    link: "https://chat.openai.com/",
   },
   {
-    title: "Tana",
-    imgSrc: "/tana_logo.png",
-    link: "https://try.tana.inc/66bqr1sp5wkb",
+    title: "Claude",
+    imgSrc: "https://claude.ai/favicon.ico",
+    link: "https://claude.ai/",
   },
   {
-    title: "Spotify",
-    imgSrc: "/spotify_logo.png",
-    link: "https://www.spotify.com/",
+    title: "Supabase",
+    imgSrc: "https://supabase.com/favicon/favicon-196x196.png",
+    link: "https://supabase.com/",
+  },
+  {
+    title: "Vercel",
+    imgSrc: "https://assets.vercel.com/image/upload/front/favicon/vercel/180x180.png",
+    link: "https://vercel.com/",
+  },
+  {
+    title: "Next.js",
+    imgSrc: "https://nextjs.org/favicon.ico",
+    link: "https://nextjs.org/",
   },
   {
     title: "Figma",
@@ -57,95 +57,78 @@ const softwareData: SoftwareDataItem[] = [
     link: "https://www.figma.com/",
   },
   {
-    title: "Things 3",
-    imgSrc: "/things3_logo.png",
-    link: "https://culturedcode.com/things/",
-  },
-  {
-    title: "Fantastical",
-    imgSrc: "/fantastical_logo.png",
-    link: "https://flexibits.com/fantastical",
-  },
-  {
-    title: "1Password",
-    imgSrc: "/1password_logo.png",
-    link: "https://1password.com/",
-  },
-  {
-    title: "Framer",
-    imgSrc: "/framer_logo.png",
-    link: "https://www.framer.com/",
-  },
-  {
-    title: "Cleanshot X",
-    imgSrc: "/cleanshotx_logo.png",
-    link: "https://getcleanshot.com/",
-  },
-  {
-    title: "PixelSnap 2",
-    imgSrc: "/pixelsnap2_logo.png",
-    link: "https://getpixelsnap.com/",
+    title: "Notion",
+    imgSrc: "/notion_logo.png",
+    link: "https://www.notion.so/",
   },
   {
     title: "Linear",
     imgSrc: "/linear_logo.png",
     link: "https://linear.app/",
   },
+  {
+    title: "Postman",
+    imgSrc: "https://www.postman.com/_ar-assets/images/favicon-1-48.png",
+    link: "https://www.postman.com/",
+  },
+  {
+    title: "Docker",
+    imgSrc: "https://www.docker.com/app/uploads/2024/02/cropped-docker-logo-favicon-192x192.png",
+    link: "https://www.docker.com/",
+  },
+  {
+    title: "Spotify",
+    imgSrc: "/spotify_logo.png",
+    link: "https://www.spotify.com/",
+  },
+  {
+    title: "Arc",
+    imgSrc: "/arc_logo.png",
+    link: "https://arc.net/",
+  },
+  {
+    title: "Raycast",
+    imgSrc: "/raycast_logo.png",
+    link: "https://raycast.com/",
+  },
 ];
 
 const hardwareData: HardwareDataItem[] = [
   {
-    title: "MacBook Pro (16 inch), 2021",
+    title: "MacBook Pro (M-series)",
     description:
-      "10-core CPU, 16-core GPU, 16-core Neural Engine, 32GB unified memory, 2TB SSD storage",
-    link: "https://www.apple.com/shop/buy-mac/macbook-pro/16-inch",
+      "My daily driver for shipping AI-powered apps, full-stack builds, and long coding sessions.",
+    link: "https://www.apple.com/shop/buy-mac/macbook-pro",
   },
   {
-    title: "Zoom65 Mechanical Keyboard",
+    title: "External 27\" Monitor",
     description:
-      "With a navy blue finish, this 65% custom mechanical keyboard has Oil King linear switches topped with GMK Hennessey keycaps",
-    link: "https://zoom65.com/",
+      "Extra screen real-estate for splitting code, terminal, browser preview, and AI chat side-by-side.",
+    link: "https://www.lg.com/",
   },
   {
-    title: "GIGABYTE M27Q-X 27 Monitor",
-    description: "A 240Hz 1440P KVM monitor that I use for work and gaming.",
-    link: "https://www.gigabyte.com/Monitor/M27Q-X-rev-10#kf",
+    title: "Mechanical Keyboard",
+    description:
+      "A tactile mechanical keyboard that makes long coding and writing sessions genuinely enjoyable.",
+    link: "https://www.keychron.com/",
   },
   {
-    title: "Autonomous ErgoChair 2",
+    title: "Logitech MX Master 3S",
     description:
-      "A fully adjustable, completely supportive, and super breathable desk chair in a black and white finish. Expensive, but an investment that has been worth it.",
-    link: "https://www.autonomous.ai/office-chairs/ergonomic-chair?option_code=ErgonomicChair-ErgoChairPro_ChairColor.BlackWhite",
+      "Smooth, quiet, and precise — the mouse I rely on for design work and navigating large codebases.",
+    link: "https://www.logitech.com/en-us/products/mice/mx-master-3s.html",
   },
   {
-    title: "Autonomous SmartDesk DIY Standing Desk",
+    title: "iPhone",
     description:
-      "A standing desk frame in a white finish. Topped with the IKEA Karlby tabletop, the desk measures almost 9’ wide, providing lots of space.",
-    link: "https://www.autonomous.ai/standing-desks/diy-smart-desk-kit?option_code=DiySmartDeskKit-FrameSmartDesk2_DeskFrame.White,Model.Proframe",
+      "For testing responsive UIs on real hardware, capturing ideas on the go, and staying connected.",
+    link: "https://www.apple.com/iphone/",
   },
   {
-    title: "Wave DX Dynamic Microphone",
+    title: "Noise-Cancelling Headphones",
     description:
-      "A dynamic mic that captures detail like a condenser without the noise, Wave DX is a remarkable feat of audio engineering.",
-    link: "https://www.elgato.com/us/en/p/wave-dx-dynamic-microphone",
-  },
-  {
-    title: "Stream Deck +",
-    description:
-      "Iconic Stream Deck tech with customizable LCD keys, dials, and touch strip.",
-    link: "https://www.elgato.com/us/en/p/stream-deck-plus-black",
-  },
-  {
-    title: "Key Light MK.2",
-    description:
-      "Ultra-bright and dimmable. Space-saving and built to last. App-controlled and destined to evolve with you.",
-    link: "https://www.elgato.com/us/en/p/key-light",
-  },
-  {
-    title: "HD60 X Capture Card",
-    description:
-      "HD60 X lets you capture PS5 or Xbox gameplay like a pro. Stream or record high resolution content for audiences on any platform.",
-    link: "https://www.elgato.com/us/en/p/game-capture-hd60-x",
+      "Deep-work fuel — blocks out noise so I can stay in flow while building and shipping.",
+    link: "https://www.sony.com/",
   },
 ];
 
