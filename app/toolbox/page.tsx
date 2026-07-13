@@ -7,7 +7,7 @@ import { GridWrapper } from "@/app/components/GridWrapper";
 export default function ToolboxPage() {
   return (
     <div className="relative">
-      <title>Toolbox | Braydon Coyer</title>
+      <title>Toolbox | Syed — Abushaid Islam</title>
       <span className="absolute left-1/2 top-20 -translate-y-1/2 translate-x-1/2">
         <HorizontalLine />
       </span>
@@ -15,7 +15,7 @@ export default function ToolboxPage() {
         <div className="mx-auto text-balance pt-14 md:pt-16">
           <GridWrapper>
             <h1 className="mx-auto max-w-2xl text-center text-4xl font-medium leading-tight tracking-tighter text-text-primary md:text-6xl md:leading-[64px]">
-              Hardware && software I keep in my toolbox.
+              The tools I use to build AI-powered products & modern web apps.
             </h1>
           </GridWrapper>
         </div>
