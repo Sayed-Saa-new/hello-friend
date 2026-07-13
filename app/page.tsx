@@ -78,7 +78,7 @@ export default async function Home() {
             </GridWrapper>
             <GridWrapper>
               <h2 className="mx-auto max-w-lg text-balance text-center text-3xl font-medium leading-10 tracking-tight text-text-primary md:text-4xl">
-                Here&apos;s what sets me apart and makes me unique
+                A bit about how I build and what I care about
               </h2>
             </GridWrapper>
           </div>
