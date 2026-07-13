@@ -3,10 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 8080",
+    "dev": "next dev",
     "build": "next build",
-    "build:dev": "next build",
-    "start": "next start -p 8080",
+    "start": "next start",
     "lint": "next lint",
     "generate-previews": "npx tsx scripts/generate-link-previews.ts",
     "fix-previews": "npx tsx scripts/fix-failed-previews.ts"
@@ -24,7 +23,6 @@
     "react-dom": "^18",
     "reading-duration": "^1.1.2",
     "rehype-raw": "^7.0.0",
-    "server-only": "^0.0.1",
     "sugar-high": "^0.6.0",
     "swr": "^2.2.5",
     "tailwind-merge": "^2.5.4",
