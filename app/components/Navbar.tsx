@@ -44,9 +44,9 @@ function DesktopNav() {
       <div className="w-[104px]">
         <Link href="/" aria-label="Home">
           <img
-            className="h-6 w-6"
-            src="/bcoyerlogo_dark.svg"
-            alt="Braydon's Logo"
+            className="h-8 w-8"
+            src="/syed_logo.png"
+            alt="Syed's Logo"
           />
         </Link>
       </div>
