@@ -321,7 +321,11 @@ function AnimatedConnectionCircle({
       className={`absolute ${sizeClass} ${paddingClass} z-10`}
     >
       <ConnectionCircle sizeClass={sizeClass} paddingClass={paddingClass}>
-        <img className="rounded-full" src={src} alt="Connection" />
+        {src ? (
+          <img className="rounded-full" src={src} alt="Connection" />
+        ) : (
+          <div className="h-full w-full rounded-full bg-[#EDEEF0]" />
+        )}
       </ConnectionCircle>
     </motion.div>
   );
