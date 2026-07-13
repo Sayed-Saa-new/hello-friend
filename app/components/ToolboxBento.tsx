@@ -36,7 +36,7 @@ export function ToolboxBento({ linkTo }: { linkTo?: string }) {
       <div className="z-20 text-center">
         <h2 className="text-base font-medium">Toolbox</h2>
         <p className="mt-1 text-text-secondary">
-          Check out my favorite tools and spots around the web.
+          The tools I use to ship AI-powered products & modern web apps.
         </p>
       </div>
       <div className="mt-10 flex items-center justify-center gap-3 transition-all duration-500 ease-in-out md:mt-12">
