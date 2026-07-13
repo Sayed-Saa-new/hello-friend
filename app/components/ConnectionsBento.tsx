@@ -164,21 +164,13 @@ export function ConnectionsBento({
               sizeClass="w-14 h-14"
               className="absolute right-16 top-4 md:right-52"
             >
-              <img
-                className="rounded-full"
-                src="/james_q_quick.jpg"
-                alt="Connection"
-              />
+              <div className="h-full w-full rounded-full bg-[#EDEEF0]" />
             </ConnectionCircle>
             <ConnectionCircle
               sizeClass="w-11 h-11"
               className="absolute bottom-20 right-4 md:right-12"
             >
-              <img
-                className="rounded-full"
-                src="/colby_fayock.jpg"
-                alt="Connection"
-              />
+              <div className="h-full w-full rounded-full bg-[#EDEEF0]" />
             </ConnectionCircle>
           </span>
         </div>
