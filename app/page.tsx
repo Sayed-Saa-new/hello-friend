@@ -14,6 +14,7 @@ import { PhotoGallery } from "./components/PhotoGallery";
 import { AboutMeBento } from "./components/AboutMeBento";
 import { AnimatedMobilePhotos } from "./components/AnimatedMobilePhotos";
 import { GridWrapper } from "./components/GridWrapper";
+import { MotionFadeIn } from "./components/MotionFadeIn";
 import clsx from "clsx";
 
 export default async function Home() {
