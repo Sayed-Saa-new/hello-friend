@@ -12,6 +12,7 @@ import { CurrentlyReadingBento } from "@/app/components/CurrentlyReadingBento";
 import { GridWrapper } from "@/app/components/GridWrapper";
 import { AboutTrackPattern } from "@/app/components/AboutTrackPattern";
 import { Photo } from "@/app/components/Photo";
+import { MotionFadeIn } from "@/app/components/MotionFadeIn";
 
 export default function AboutPage() {
   const timeOfDayGreeting = getTimeOfDayGreeting();
