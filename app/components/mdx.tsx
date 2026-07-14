@@ -218,7 +218,7 @@ const Pre = ({ children, ...props }: React.HTMLAttributes<HTMLPreElement>) => {
   const childrenArray = React.Children.toArray(children);
   const code = childrenArray.find(
     (child) => React.isValidElement(child) && child.type === "code",
-  ) as React.ReactElement;
+  ) as React.ReactElement<{ className?: string }> | undefined;
 
   const className = code?.props.className || "";
   const matches = className.match(/language-(?<lang>.*)/);
