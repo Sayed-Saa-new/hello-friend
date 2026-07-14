@@ -10,7 +10,7 @@ export function CurrentlyReadingBento() {
         <img
           src="/surrounded_by_idiots_cover.png"
           alt="Surrounded by Idiots book cover"
-          className="absolute -right-8 -bottom-10 h-[380px] w-auto max-w-none rotate-[12deg] drop-shadow-2xl transition-transform duration-500 ease-out group-hover:rotate-[8deg] group-hover:scale-[1.03]"
+          className="absolute -right-16 -top-6 h-[420px] w-auto max-w-none rotate-[12deg] drop-shadow-2xl transition-transform duration-500 ease-out group-hover:rotate-[8deg] group-hover:scale-[1.03]"
         />
       </div>
     </BentoCard>
