@@ -1,6 +1,7 @@
 "use client";
 
 import useSWR from "swr";
+import { useEffect, useState } from "react";
 
 import { type CurrentlyPlaying } from "app/db/spotify";
 import Link from "next/link";
