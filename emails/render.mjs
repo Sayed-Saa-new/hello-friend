@@ -18,6 +18,6 @@ if (varsPath && fs.existsSync(varsPath)) {
     mjml = mjml.replaceAll(`{{${k}}}`, String(v));
   }
 }
-const { html, errors } = mjml2html(mjml, { validationLevel: "soft" });
+const { html, errors } = await mjml2html(mjml, { validationLevel: "soft" });
 if (errors?.length) console.error(errors);
 process.stdout.write(html);
