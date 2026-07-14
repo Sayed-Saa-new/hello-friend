@@ -5,7 +5,7 @@ import { Tabs, TabList, Tab, TabPanels, TabPanel } from "@/app/components/Tabs";
 import { GridWrapper } from "@/app/components/GridWrapper";
 import { PageSection } from "../components/PageSection";
 import { MotionFadeIn } from "@/app/components/MotionFadeIn";
-import siteMetadata from "@/app/data/siteMetadata";
+import { siteMetadata } from "@/app/data/siteMetadata";
 
 const topics = [
   {
