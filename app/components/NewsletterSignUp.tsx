@@ -83,7 +83,7 @@ export function NewsletterSignUp({
     <div className="relative pb-16">
       <GridWrapper>
         <div className="relative overflow-x-clip">
-          <div className="drama-shadow rounded-2xl bg-dark-primary p-14 md:p-[100px]">
+          <div className="drama-shadow relative overflow-hidden rounded-2xl bg-dark-primary p-14 md:p-[100px]">
             {/* Lines */}
             <div className="absolute left-0 right-0 top-[34px] z-10 h-px w-full bg-zinc-600 md:top-[48px]"></div>
             <div className="absolute bottom-0 right-[34px] top-0 z-10 h-full w-px bg-zinc-600 md:right-[48px]"></div>
