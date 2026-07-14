@@ -74,7 +74,7 @@ export default function AboutPage() {
 
         {/* About */}
         <div className="relative space-y-8 text-center">
-          <div className="space-y-4">
+          <MotionFadeIn className="space-y-4">
             <GridWrapper>
               <div className="text-center text-sm font-medium text-indigo-600">
                 <span>About</span>
@@ -85,7 +85,7 @@ export default function AboutPage() {
                 Here&apos;s a quick intro about me and what I love to do
               </h2>
             </GridWrapper>
-          </div>
+          </MotionFadeIn>
           <div className="relative h-fit w-full overflow-hidden">
             <div className="absolute left-0 top-0 w-full md:left-4 lg:left-[355px] xl:left-[455px]">
               <AboutTrackPattern />
