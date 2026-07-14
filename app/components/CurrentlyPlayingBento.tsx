@@ -9,14 +9,14 @@ import { CirclePattern } from "./SpeakingBento";
 import { getCurrentlyPlaying } from "@/app/db/actions";
 
 const favorite: CurrentlyPlaying = {
-  artist: "Bear McCreary",
-  albumName: "The Lord of the Rings: The Rings of Power",
-  albumId: "2Oe6kYDU9YQhun0YrXL9eV",
-  artistId: "2ifvIECHAlEgPMBuBOJ0lG",
-  title: "The Sun Yet Shines",
+  artist: "Ayub Bachchu",
+  albumName: "Bangla Old Songs & English Mashup",
+  albumId: "",
+  artistId: "",
+  title: "Sei Tumi",
   albumImageUrl:
-    "https://i.scdn.co/image/ab67616d0000b2735cf2a1df961de6e7d7d3c113",
-  songUrl: "https://open.spotify.com/track/5hcRWT88VLlbhEMh4efCMy",
+    "https://i.scdn.co/image/ab67616d0000b273f0f1b6a3b8f5d5c5d5d5d5d5",
+  songUrl: "https://open.spotify.com/search/sei%20tumi%20ayub%20bachchu",
   isPlaying: false,
 };
 
