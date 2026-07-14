@@ -32,6 +32,21 @@ export function CurrentlyPlayingBento() {
 
   const currentTrack = playing || favorite;
   const isCurrentlyPlaying = !!playing;
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [isOpen]);
 
   if (isLoading) {
     return (
