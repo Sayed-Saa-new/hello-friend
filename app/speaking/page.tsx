@@ -8,6 +8,7 @@ import { AnimatedMobilePhotos } from "@/app/components/AnimatedMobilePhotos";
 import { PageSection } from "../components/PageSection";
 import { ContentLink } from "../components/ContentLink";
 import { VideoCard } from "../components/VideoCard";
+import { MotionFadeIn } from "@/app/components/MotionFadeIn";
 
 interface TalkEvent {
   event: string;
