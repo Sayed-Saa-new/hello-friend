@@ -431,7 +431,7 @@ function FullWidthCallout({ children, type }) {
           child.includes("[") &&
           child.includes("](")
         ) {
-          const segments: (string | JSX.Element)[] = [];
+          const segments: (string | React.JSX.Element)[] = [];
           let currentIndex = 0;
           const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
           let match;
