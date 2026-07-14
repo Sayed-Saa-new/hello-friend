@@ -4,66 +4,57 @@ import { Timeline } from "./Timeline";
 const resumeData: ResumeData = {
   experiences: [
     {
-      company: "LogicGate",
-      period: "2022 - Present",
+      company: "Personal Projects",
+      period: "2024 — Present",
       positions: [
         {
-          title: "Frontend Developer III",
+          title: "Software Engineer & AI Product Builder",
           description: [
-            "I lead feature development on a team by analyzing requirements, designing solutions, and assist in evolving the frontend chapter of our organization.",
-          ],
-        },
-        {
-          title: "Frontend Developer II",
-          description: [
-            "I joined LogicGate and immediately took charge of feature development on my team while also assisting other frontend developers in the organization.",
+            "Building modern full-stack web applications using Next.js, TypeScript, React, Supabase, and PostgreSQL.",
+            "Designing secure authentication systems with a strong focus on privacy, encryption, and user experience.",
+            "Creating AI-powered products, developer tools, and scalable SaaS applications.",
+            "Continuously exploring modern web technologies, UI/UX, and cloud deployment.",
           ],
         },
       ],
     },
     {
-      company: "Cognizant",
-      period: "2019 - 2021",
-      positions: [
-        {
-          title: "Senior Fullstack Developer",
-          description: [
-            "I designed and developed full-stack RESTful microservices using Netflix OSS, Java, Spring Boot, SQL, Angular, React, and Vue.",
-            "I led development teams, utilizing extreme programming principles such as agile, test-driven development, and paired programming.",
-            "I spearheaded the information architecture and developed a reusable UI component library for healthcare clients.",
-            "I led over 650 developers through a monthly enablement process, training them for client work on the Digital Engineering stack.",
-          ],
-        },
-      ],
-    },
-    {
-      company: "projekt202",
-      period: "2018 - 2019",
-      positions: [
-        {
-          title: "UI Developer",
-          description: [
-            "I assisted in developing a reusable UI component library and worked closely with a multi-million dollar airline client to gather requirements.",
-            "My responsibility included developing solutions for enterprise clients worth millions of dollars, using Angular 7 for the frontend.",
-          ],
-        },
-      ],
-    },
-    {
-      company: "Major 4 Apps",
-      period: "2018 - 2019",
+      company: "FirstOrder AI Authenticator",
+      period: "2025 — Present",
       positions: [
         {
           title: "Founder & Developer",
           description: [
-            "I developed custom applications for clients, designed, developed, tested, and supported mobile applications on iOS and Android platforms.",
-            "My mobile game ranked among the top 200 on the Amazon App Store.",
+            "Developing an enterprise-grade 2FA authenticator with TOTP/HOTP support.",
+            "Implementing AES-256 encryption, Argon2 password protection, QR scanning, encrypted backup, and modern security features.",
+            "Focusing on premium UI/UX and cross-platform architecture.",
+          ],
+        },
+      ],
+    },
+    {
+      company: "Portfolio & Open Source",
+      period: "2024 — Present",
+      positions: [
+        {
+          title: "Independent Developer",
+          description: [
+            "Building a personal portfolio with Next.js, Notion CMS, and Framer Motion.",
+            "Developing projects such as Readoft, DMailova, and other experimental AI/web applications.",
+            "Learning and applying modern software engineering best practices through real-world projects.",
           ],
         },
       ],
     },
   ],
-  avatarUrl: "/braydon_headshot_1.jpeg",
+  education: [
+    {
+      school: "Dhaka Commerce College",
+      period: "2024 — 2026 (Expected)",
+      degree: "Higher Secondary Certificate (HSC) — Science",
+    },
+  ],
+  avatarUrl: "/syed_headshot_1.jpg",
 };
 
 export function Resume() {
@@ -111,6 +102,31 @@ export function Resume() {
             <Timeline avatarUrl={resumeData.avatarUrl} />
           </div>
         </div>
+
+        {resumeData.education && resumeData.education.length > 0 && (
+          <div className="mt-20 border-t border-gray-100 pt-12">
+            <h3 className="mb-8 text-2xl font-bold">Education</h3>
+            <div className="space-y-8">
+              {resumeData.education.map((edu) => (
+                <div
+                  key={edu.school}
+                  className="grid grid-cols-1 gap-4 md:grid-cols-[2fr,4fr]"
+                >
+                  <div>
+                    <h4 className="text-xl font-bold">{edu.school}</h4>
+                    <p className="text-sm text-gray-600">{edu.period}</p>
+                  </div>
+                  <div>
+                    <p className="text-lg font-semibold">{edu.degree}</p>
+                    {edu.description && (
+                      <p className="mt-2 text-gray-600">{edu.description}</p>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

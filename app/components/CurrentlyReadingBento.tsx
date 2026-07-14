@@ -1,7 +1,4 @@
-import { Changelog } from "@/.velite";
-import { fetchAndSortChangelogEntrees } from "app/lib/utils";
 import { BentoCard } from "./BentoCard";
-import { motion } from "framer-motion";
 
 export function CurrentlyReadingBento() {
   return (
@@ -20,11 +17,11 @@ export function CurrentlyReadingBento() {
 
 function BookCover() {
   return (
-    <div className="relative aspect-video h-full w-96 overflow-hidden rounded bg-red-500">
+    <div className="relative aspect-video h-full w-96 overflow-hidden rounded">
       <div className="absolute left-5 h-full w-2 bg-slate-900/20 blur-sm"></div>
       <img
-        src="/red_rising_cover.jpeg"
-        alt="Dune book cover"
+        src="/surrounded_by_idiots_cover.png"
+        alt="Surrounded by Idiots book cover"
         className="h-full"
       />
     </div>

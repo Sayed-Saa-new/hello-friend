@@ -207,47 +207,47 @@ export function ScrapbookBento({ className }: { className?: string }) {
           className="-mt-8 grid h-full w-full grid-cols-4 items-center gap-4"
         >
           <Sticker
-            caption="THAT Conference was my favorite tech event of 2024! I even kicked off my speaking season with my very first talk of the year there!"
+            caption="Late-night chai fuels most of my code. If it's past midnight and something's shipping, there's a cup next to my keyboard."
             index={0}
           >
             <img
-              width="80"
-              src="/that_conf_sticker.png"
+              width="90"
+              src="/chai_sticker.png"
               className="xs:max-w-none max-w-[100px]"
               draggable={false}
             />
           </Sticker>
           <Sticker
-            caption={`I became an international speaker at C3 Dev Fest, where I shared insights on "The Power of a Second Brain in a Developer's Workflow."`}
+            caption="My happy place — building AI-powered products end-to-end on my Asus Vivobook, one commit at a time."
             index={1}
           >
             <img
-              width="96"
-              src="c3_conf_sticker.png"
-              className="xs:max-w-none max-w-[100px]"
+              width="100"
+              src="/laptop_ai_sticker.png"
+              className="xs:max-w-none max-w-[110px]"
               draggable={false}
             />
           </Sticker>
           <Sticker
-            caption="I'm a huge Lord of the Rings nerd and host an epic 3-day marathon every year to watch the extended editions with friends and family."
+            caption="Bangla old classics + English mashups on loop. Ayub Bachchu, retro vibes, and modern beats keep the coding sessions alive."
             index={2}
           >
             <img
-              width="130"
-              src="/lotr_sticker.png"
-              className=""
+              width="110"
+              src="/cassette_sticker.png"
+              className="xs:max-w-none max-w-[120px]"
               draggable={false}
             />
           </Sticker>
           <Sticker
-            caption="I helped create, organize, and speak at the inaugural Commit Your Code Conference in 2024, where every penny went to charity!"
+            caption="Dhaka born and raised. The chaos, the rickshaws, the people — it shapes how I build and who I build for."
             index={3}
           >
             <img
-              width="160"
-              src="/cyc_sticker.png"
+              width="110"
+              src="/rickshaw_sticker.png"
               draggable={false}
-              className="xs:max-w-none"
+              className="xs:max-w-none max-w-[120px]"
             />
           </Sticker>
         </motion.div>

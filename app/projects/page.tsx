@@ -1,82 +1,150 @@
+import Image from "next/image";
 import { GridWrapper } from "@/app/components/GridWrapper";
+import { BentoCard } from "@/app/components/BentoCard";
 
 interface Project {
   title: string;
+  tagline: string;
   description: string;
   image: string;
   url: string;
+  stack: string[];
+  platforms: string[];
+  status: "Live" | "In Progress" | "Beta";
+  year: string;
 }
 
 const projects: Project[] = [
   {
-    title: "Commit Your Code Conference Website",
+    title: "Aegis Authenticator",
+    tagline: "Zero-Knowledge TOTP Authenticator",
     description:
-      "A web development conference for charity, the Commit Your Code Conference website was designed and built by me using Figma, Next.js and Tailwind CSS.",
-    image: "/projects/commit_your_code_project.jpeg",
-    url: "https://www.commityourcode.com/",
-  },
-  {
-    title: "Pomegradient",
-    description:
-      "Pomegradient is a web-based gradient solution that allows you to find, save and craft gradients with a creative community!",
-    image: "/projects/pomegradient_project.jpeg",
-    url: "https://www.pomegradient.com/",
+      "End-to-end encrypted two-factor authentication that runs as a PWA, browser extension and Windows desktop app — a privacy-first alternative to Google Authenticator & Authy where the server never sees your secrets.",
+    image: "/projects/aegis-cover.jpg",
+    url: "https://aegis-syed.lovable.app",
+    stack: ["React 19", "TanStack Start", "Supabase", "Web Crypto", "Electron"],
+    platforms: ["Web PWA", "Chrome Extension", "Windows Desktop"],
+    status: "Live",
+    year: "2025 – 2026",
   },
 ];
 
-function ProjectImage(props) {
-  return (
-    <img src={props.src} alt={props.alt} className="drama-shadow rounded-xl" />
-  );
-}
+export const metadata = {
+  title: "Projects | Syed",
+  description:
+    "A curated collection of AI-powered products, full-stack apps, and experiments built by Syed.",
+};
 
 export default function ProjectPage() {
   return (
-    <div className="relative space-y-16">
+    <div className="relative space-y-16 pb-24">
+      <title>Projects | Syed</title>
+
       <GridWrapper>
         <h1 className="mx-auto mt-16 max-w-2xl text-balance text-center text-4xl font-medium leading-tight tracking-tighter text-text-primary md:text-6xl md:leading-[64px]">
           A collection of my favorite works.
         </h1>
       </GridWrapper>
 
-      <GridWrapper className="space-y-12">
-        {projects.map((project) => (
-          <div key={project.title} className="space-y-12">
-            <GridWrapper className="px-10">
-              <ProjectImage src={project.image} alt={project.title} />
-            </GridWrapper>
-            <GridWrapper className="px-10">
-              <div className="max-w-2xl text-balance">
-                <h2 className="mb-3 text-2xl font-medium leading-6 tracking-tight text-slate-900 md:leading-none">
-                  {project.title}
-                </h2>
-                <p className="mb-3 flex-grow text-base leading-6 text-text-secondary">
-                  {project.description}
-                </p>
-                <a
-                  className="inline-flex items-center text-sm font-medium text-indigo-600"
-                  href={project.url}
-                >
-                  Visit {project.title}
-                  <svg
-                    className="relative ml-2.5 mt-px overflow-visible"
-                    width="3"
-                    height="6"
-                    viewBox="0 0 3 6"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M0 0L3 3L0 6"></path>
-                  </svg>
-                </a>
-              </div>
-            </GridWrapper>
-          </div>
-        ))}
+      <GridWrapper>
+        <div className="mx-auto max-w-6xl space-y-8 px-4">
+          {projects.map((project) => (
+            <ProjectBentoCard key={project.title} project={project} />
+          ))}
+        </div>
       </GridWrapper>
     </div>
+  );
+}
+
+function ProjectBentoCard({ project }: { project: Project }) {
+  return (
+    <BentoCard
+      linkTo={project.url}
+      hideOverflow={true}
+      className="!p-0 md:min-h-[420px]"
+    >
+      <div className="grid grid-cols-1 md:grid-cols-2">
+        {/* Left: image */}
+        <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#F5EEDF] md:aspect-auto md:min-h-[420px]">
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+            priority
+          />
+        </div>
+
+        {/* Right: details */}
+        <div className="flex flex-col justify-between gap-6 p-7 md:p-10">
+          <div>
+            <div className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-text-tertiary">
+              <span
+                className={`inline-flex h-1.5 w-1.5 rounded-full ${
+                  project.status === "Live" ? "bg-emerald-500" : "bg-amber-500"
+                }`}
+              />
+              {project.status}
+              <span className="text-border-secondary">·</span>
+              <span>{project.year}</span>
+            </div>
+
+            <h2 className="mt-3 text-2xl font-medium leading-tight tracking-tight text-text-primary md:text-3xl">
+              {project.title}
+            </h2>
+            <p className="mt-1 text-sm text-text-secondary md:text-base">
+              {project.tagline}
+            </p>
+
+            <p className="mt-5 text-sm leading-6 text-text-secondary">
+              {project.description}
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            <div className="flex flex-wrap gap-1.5">
+              {project.stack.map((t) => (
+                <span
+                  key={t}
+                  className="rounded-full border border-border-primary bg-bg-secondary px-2.5 py-1 text-[11px] text-text-secondary"
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2 text-[11px] text-text-tertiary">
+              {project.platforms.map((p, i) => (
+                <span key={p} className="inline-flex items-center gap-2">
+                  {i > 0 && <span className="text-border-secondary">·</span>}
+                  {p}
+                </span>
+              ))}
+            </div>
+
+            <div className="pt-1">
+              <span className="inline-flex items-center gap-1.5 text-sm font-medium text-indigo-600">
+                Visit {project.title}
+                <svg
+                  width="3"
+                  height="6"
+                  viewBox="0 0 3 6"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="relative mt-px overflow-visible"
+                >
+                  <path d="M0 0L3 3L0 6" />
+                </svg>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </BentoCard>
   );
 }

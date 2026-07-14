@@ -3,11 +3,9 @@
 import { unstable_cache } from "next/cache";
 import type { GitHubStats, ContributionData } from "./types";
 
-const GITHUB_REPO = "braydoncoyer/braydoncoyer.dev";
-const GITHUB_USERNAME = "braydoncoyer";
+const GITHUB_USERNAME = "abushaidislam";
 
-async function fetchContributions(token: string): Promise<ContributionData | null> {
-  // Calculate rolling 365-day window ending today
+async function fetchContributions(token: string): Promise<{ data: ContributionData | null; totalCommits: number }> {
   const today = new Date();
   const oneYearAgo = new Date();
   oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
@@ -16,6 +14,7 @@ async function fetchContributions(token: string): Promise<ContributionData | nul
     query {
       user(login: "${GITHUB_USERNAME}") {
         contributionsCollection(from: "${oneYearAgo.toISOString()}", to: "${today.toISOString()}") {
+          totalCommitContributions
           contributionCalendar {
             totalContributions
             weeks {
@@ -41,40 +40,64 @@ async function fetchContributions(token: string): Promise<ContributionData | nul
       body: JSON.stringify({ query }),
     });
 
-    if (!response.ok) {
-      console.error("Failed to fetch contributions:", response.status);
-      return null;
-    }
+    if (!response.ok) return { data: null, totalCommits: 0 };
 
-    const data = await response.json();
-    const calendar = data?.data?.user?.contributionsCollection?.contributionCalendar;
-
-    if (!calendar) {
-      return null;
-    }
+    const json = await response.json();
+    const collection = json?.data?.user?.contributionsCollection;
+    const calendar = collection?.contributionCalendar;
+    if (!calendar) return { data: null, totalCommits: 0 };
 
     return {
-      totalContributions: calendar.totalContributions,
-      weeks: calendar.weeks,
+      data: {
+        totalContributions: calendar.totalContributions,
+        weeks: calendar.weeks,
+      },
+      totalCommits: collection.totalCommitContributions || 0,
     };
   } catch (error) {
     console.error("Error fetching contributions:", error);
-    return null;
+    return { data: null, totalCommits: 0 };
   }
+}
+
+async function fetchUserRepoTotals(headers: HeadersInit): Promise<{ stars: number; forks: number }> {
+  let stars = 0;
+  let forks = 0;
+  let page = 1;
+  try {
+    while (page < 10) {
+      const res = await fetch(
+        `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&page=${page}&type=owner`,
+        { headers }
+      );
+      if (!res.ok) break;
+      const repos = await res.json();
+      if (!Array.isArray(repos) || repos.length === 0) break;
+      for (const r of repos) {
+        if (r.fork) continue;
+        stars += r.stargazers_count || 0;
+        forks += r.forks_count || 0;
+      }
+      if (repos.length < 100) break;
+      page++;
+    }
+  } catch (e) {
+    console.error("Error fetching user repos:", e);
+  }
+  return { stars, forks };
 }
 
 export const getGitHubStats = unstable_cache(
   async (): Promise<GitHubStats> => {
-    const token = process.env.GITHUB_TOKEN;
+    const token =
+      process.env.GITHUB_FINE_GRAINED_PERSONAL_ACCESS_TOKEN ||
+      process.env.GITHUB_TOKEN;
+
+    const empty: GitHubStats = { stars: 0, forks: 0, commits: 0, contributions: null };
 
     if (!token) {
-      console.warn("GITHUB_TOKEN not set, returning default values");
-      return {
-        stars: 0,
-        forks: 0,
-        commits: 0,
-        contributions: null,
-      };
+      console.warn("GITHUB_TOKEN not set, returning zeros");
+      return empty;
     }
 
     const headers: HeadersInit = {
@@ -83,63 +106,22 @@ export const getGitHubStats = unstable_cache(
     };
 
     try {
-      // Fetch repository info (stars, forks)
-      const repoResponse = await fetch(
-        `https://api.github.com/repos/${GITHUB_REPO}`,
-        { headers }
-      );
-
-      let stars = 0;
-      let forks = 0;
-
-      if (repoResponse.ok) {
-        const repoData = await repoResponse.json();
-        stars = repoData.stargazers_count || 0;
-        forks = repoData.forks_count || 0;
-      }
-
-      // Fetch commit count via pagination headers
-      const commitsResponse = await fetch(
-        `https://api.github.com/repos/${GITHUB_REPO}/commits?per_page=1`,
-        { headers }
-      );
-
-      let commits = 0;
-
-      if (commitsResponse.ok) {
-        // Parse Link header for total count
-        const linkHeader = commitsResponse.headers.get("Link");
-        if (linkHeader) {
-          const match = linkHeader.match(/page=(\d+)>; rel="last"/);
-          if (match) {
-            commits = parseInt(match[1], 10);
-          }
-        } else {
-          // If no pagination, there's only one page
-          const data = await commitsResponse.json();
-          commits = Array.isArray(data) ? data.length : 0;
-        }
-      }
-
-      // Fetch contribution graph data
-      const contributions = await fetchContributions(token);
+      const [{ stars, forks }, contrib] = await Promise.all([
+        fetchUserRepoTotals(headers),
+        fetchContributions(token),
+      ]);
 
       return {
         stars,
         forks,
-        commits,
-        contributions,
+        commits: contrib.totalCommits,
+        contributions: contrib.data,
       };
     } catch (error) {
       console.error("Error fetching GitHub stats:", error);
-      return {
-        stars: 0,
-        forks: 0,
-        commits: 0,
-        contributions: null,
-      };
+      return empty;
     }
   },
-  ["github-stats"],
-  { revalidate: 86400 } // Revalidate every 24 hours
+  ["github-stats-syed"],
+  { revalidate: 86400 }
 );
