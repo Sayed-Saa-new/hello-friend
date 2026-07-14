@@ -18,13 +18,13 @@ export function StatsPageHeader() {
         </GridWrapper>
         <GridWrapper>
           <h1 className="mx-auto mt-4 max-w-2xl text-balance text-center text-4xl font-medium leading-tight tracking-tighter text-text-primary md:text-5xl">
-            Building in public
+            A peek behind the curtain
           </h1>
         </GridWrapper>
         <GridWrapper>
           <p className="mx-auto mt-4 max-w-xl text-center leading-8 text-text-secondary">
-            GitHub activity, shipped projects, and a live snapshot of what
-            I&apos;m building.
+            Numbers, metrics, and fun facts about this little corner of the
+            internet. Updated in real-time.
           </p>
         </GridWrapper>
       </section>
@@ -51,7 +51,7 @@ export function StatsPageHeader() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="mx-auto mt-4 max-w-2xl text-balance text-center text-4xl font-medium leading-tight tracking-tighter text-text-primary md:text-5xl"
         >
-          Building in public
+          A peek behind the curtain
         </motion.h1>
       </GridWrapper>
       <GridWrapper>
@@ -61,8 +61,8 @@ export function StatsPageHeader() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="mx-auto mt-4 max-w-xl text-center leading-8 text-text-secondary"
         >
-          GitHub activity, shipped projects, and a live snapshot of what
-          I&apos;m building.
+          Numbers, metrics, and fun facts about this little corner of the
+          internet. Updated in real-time.
         </motion.p>
       </GridWrapper>
     </section>
