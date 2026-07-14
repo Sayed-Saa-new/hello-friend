@@ -181,27 +181,6 @@ export function NewsletterSignUp({
               <span className="font-bold text-white">NO SPAM.</span> I never
               send spam. You can unsubscribe at any time!
             </p>
-            <motion.div
-              aria-hidden="true"
-              className="pointer-events-none absolute -top-6 right-8 z-10 hidden h-[360px] w-[360px] lg:block"
-              style={{
-                maskImage: "url(/syed_logo_mark.png)",
-                WebkitMaskImage: "url(/syed_logo_mark.png)",
-                maskSize: "contain",
-                WebkitMaskSize: "contain",
-                maskRepeat: "no-repeat",
-                WebkitMaskRepeat: "no-repeat",
-                maskPosition: "center",
-                WebkitMaskPosition: "center",
-                filter: "drop-shadow(0 8px 24px rgba(0,0,0,0.35))",
-              }}
-              animate={{
-                backgroundColor: formState.isSuccess ? "#6C47FF" : "#4B4B4F",
-                opacity: formState.isSuccess ? 0.95 : 0.45,
-                rotate: formState.isSuccess ? 8 : 0,
-              }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-            />
           </div>
         </div>
       </GridWrapper>
