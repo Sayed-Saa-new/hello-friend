@@ -14,19 +14,19 @@ export default async function LinksPage() {
 
   return (
     <div className="relative">
-      <title>Links | Braydon Coyer</title>
+      <title>Links | Abushaid Islam (Syed)</title>
       <div className="space-y-12">
         <ProfilePicture />
         <GridWrapper>
           <h1 className="mx-auto max-w-2xl text-center text-4xl font-medium leading-tight tracking-tighter text-text-primary md:text-6xl md:leading-[64px]">
-            Hey, I&apos;m Braydon!
+            Hey, I&apos;m Syed!
           </h1>
         </GridWrapper>
         <GridWrapper>
           <div className="mx-auto max-w-xl text-center md:mt-8">
             <p className="leading-8 text-text-secondary">
-              I&apos;m a front-end developer, team lead, blogger and
-              international public speaker.
+              Software & AI Engineer building AI-powered products, secure
+              authentication systems, and modern web experiences.
             </p>
           </div>
         </GridWrapper>
@@ -35,7 +35,7 @@ export default async function LinksPage() {
             <Button href="/" variant="primary">
               View my full website
             </Button>
-            <Button href="mailto:braydon@coyer.net" variant="secondary">
+            <Button href={siteMetadata.email} variant="secondary">
               Email me
             </Button>
           </div>
@@ -79,7 +79,7 @@ export default async function LinksPage() {
               </div>
             </a>
             <a
-              href={siteMetadata.linkedin}
+              href={siteMetadata.facebook}
               target="_blank"
               rel="noopener noreferrer"
               className="group no-underline transition-all duration-500 group-hover:-translate-y-3"
@@ -93,47 +93,13 @@ export default async function LinksPage() {
                     <svg
                       className="h-12 w-12 text-indigo-500"
                       viewBox="0 0 24 24"
-                      fill="none"
+                      fill="currentColor"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <path
-                        d="M4.75 7.75C4.75 6.09315 6.09315 4.75 7.75 4.75H16.25C17.9069 4.75 19.25 6.09315 19.25 7.75V16.25C19.25 17.9069 17.9069 19.25 16.25 19.25H7.75C6.09315 19.25 4.75 17.9069 4.75 16.25V7.75Z"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      ></path>
-                      <path
-                        d="M10.75 16.25V14C10.75 12.7574 11.7574 11.75 13 11.75C14.2426 11.75 15.25 12.7574 15.25 14V16.25"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      ></path>
-                      <path
-                        d="M10.75 11.75V16.25"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      ></path>
-                      <path
-                        d="M7.75 11.75V16.25"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      ></path>
-                      <path
-                        d="M7.75 8.75V9.25"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      ></path>
+                      <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.99 22 12z" />
                     </svg>
                   </div>
-                  <p className="mt-3 text-sm text-gray-500">LinkedIn</p>
+                  <p className="mt-3 text-sm text-gray-500">Facebook</p>
                 </div>
               </div>
             </a>
@@ -170,6 +136,7 @@ export default async function LinksPage() {
             </a>
           </div>
         </GridWrapper>
+
 
         <GridWrapper>
           <div className="text-center text-sm font-medium text-indigo-600">
