@@ -414,7 +414,7 @@ function FullWidthCallout({ children, type }) {
       return true;
     }
 
-    if (React.isValidElement(child) && child.props?.children) {
+    if (React.isValidElement<{ children?: React.ReactNode }>(child) && child.props?.children) {
       return React.Children.toArray(child.props.children).some(
         (grandchild) =>
           React.isValidElement(grandchild) && grandchild.type === CustomLink,
