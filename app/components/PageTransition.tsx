@@ -9,7 +9,7 @@ const easeOut = [0.22, 1, 0.36, 1] as const;
 export function PageTransition({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   return (
-    <AnimatePresence mode="wait" initial={false}>
+    <AnimatePresence mode="wait">
       <motion.div
         key={pathname}
         initial={{ opacity: 0, y: 24 }}
