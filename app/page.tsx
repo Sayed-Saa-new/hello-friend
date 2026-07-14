@@ -110,7 +110,7 @@ export default async function Home() {
         {/* Blog Section */}
         <section className="relative space-y-10 md:space-y-16">
           {/* <BlogPattern /> */}
-          <div className="relative space-y-4 text-balance">
+          <MotionFadeIn className="relative space-y-4 text-balance">
             <span className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2">
               <BgGradient />
             </span>
@@ -124,39 +124,42 @@ export default async function Home() {
                 Notes on AI, engineering && the things I&apos;m building
               </h2>
             </GridWrapper>
-          </div>
+          </MotionFadeIn>
 
-          <div className="z-10">
-            <GridWrapper>
-              <ul className="z-50 grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
-                {featuredArticles.length > 0 ? (
-                  <>
-                    {featuredArticles.slice(0, 4).map((post, index) => (
-                      <FeaturedBlogCard
-                        key={post.slug}
-                        slug={post.slug}
-                        imageName={post.imageName}
-                        title={post.title}
-                        summary={post.summary}
-                        className={clsx(
-                          // Hide the fourth article on mobile and desktop
-                          index === 3 && "hidden md:block lg:hidden",
-                        )}
-                      />
-                    ))}
-                  </>
-                ) : (
-                  <p>Nothing to see here yet...</p>
-                )}
-              </ul>
-            </GridWrapper>
-          </div>
+          <MotionFadeIn delay={0.1} y={30}>
+            <div className="z-10">
+              <GridWrapper>
+                <ul className="z-50 grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
+                  {featuredArticles.length > 0 ? (
+                    <>
+                      {featuredArticles.slice(0, 4).map((post, index) => (
+                        <FeaturedBlogCard
+                          key={post.slug}
+                          slug={post.slug}
+                          imageName={post.imageName}
+                          title={post.title}
+                          summary={post.summary}
+                          index={index}
+                          className={clsx(
+                            // Hide the fourth article on mobile and desktop
+                            index === 3 && "hidden md:block lg:hidden",
+                          )}
+                        />
+                      ))}
+                    </>
+                  ) : (
+                    <p>Nothing to see here yet...</p>
+                  )}
+                </ul>
+              </GridWrapper>
+            </div>
+          </MotionFadeIn>
         </section>
 
         {/* My Site Section */}
         <section className="relative space-y-10 md:space-y-16">
           {/* <MySitePattern /> */}
-          <div className="space-y-4 text-balance">
+          <MotionFadeIn className="space-y-4 text-balance">
             <GridWrapper>
               <div className="text-center text-sm font-medium text-indigo-600">
                 <span>My Site</span>
@@ -167,23 +170,25 @@ export default async function Home() {
                 Explore my work, experiments && say hello
               </h2>
             </GridWrapper>
-          </div>
+          </MotionFadeIn>
 
-          <GridWrapper>
-            <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
-              <span className="col-span-1 h-[276px] sm:block md:hidden lg:block">
-                <ChangelogBento />
-              </span>
-              <SpeakingBento />
-              <CommunityWallBento />
-            </div>
-          </GridWrapper>
+          <MotionFadeIn delay={0.1} y={30}>
+            <GridWrapper>
+              <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
+                <span className="col-span-1 h-[276px] sm:block md:hidden lg:block">
+                  <ChangelogBento />
+                </span>
+                <SpeakingBento />
+                <CommunityWallBento />
+              </div>
+            </GridWrapper>
+          </MotionFadeIn>
         </section>
 
         {/* Newsletter Section */}
-        <section>
+        <MotionFadeIn as="section" delay={0.1} y={30}>
           <NewsletterSignUp />
-        </section>
+        </MotionFadeIn>
       </div>
     </section>
   );
