@@ -75,7 +75,6 @@ export const metadata: Metadata = {
     google: "4GW5hFWsbJa_98tGQoSUIX-OAfhGOfhh7ZLsxEoHqc0",
   },
   manifest: "/manifest.webmanifest",
-  themeColor: "#0a0a0c",
   appleWebApp: {
     capable: true,
     title: "Syed",
@@ -90,6 +89,10 @@ export const metadata: Metadata = {
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
   },
 
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0a0a0c",
 };
 
 const personJsonLd = {
