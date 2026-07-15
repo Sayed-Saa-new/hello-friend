@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import Navbar from "app/components/Navbar";
 import { siteMetadata } from "app/data/siteMetadata";
