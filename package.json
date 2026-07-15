@@ -14,6 +14,7 @@
   "dependencies": {
     "@codesandbox/sandpack-react": "^2.20.0",
     "@headlessui/react": "^2.1.8",
+    "@serwist/next": "^9.5.11",
     "@supabase/ssr": "^0.5.2",
     "@supabase/supabase-js": "^2.49.1",
     "clsx": "^2.1.1",
@@ -24,6 +25,7 @@
     "react-dom": "^19.2.7",
     "reading-duration": "^1.1.2",
     "rehype-raw": "^7.0.0",
+    "serwist": "^9.5.11",
     "sugar-high": "^0.6.0",
     "swr": "^2.2.5",
     "tailwind-merge": "^2.5.4",

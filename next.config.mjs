@@ -8,7 +8,9 @@ if (!process.env.VELITE_STARTED && (isDev || isBuild)) {
 
 /** @type {import('next').NextConfig} */
 const config = {
+  turbopack: {},
   trailingSlash: false,
+
   async redirects() {
     return [
       // Handle trailing slashes on blog posts (Google Search Console 404s)
@@ -55,4 +57,15 @@ const config = {
   },
 };
 
-export default config;
+import withSerwistInit from "@serwist/next";
+
+const withSerwist = withSerwistInit({
+  swSrc: "app/sw.ts",
+  swDest: "public/sw.js",
+  cacheOnNavigation: true,
+  reloadOnOnline: true,
+  disable: process.env.NODE_ENV !== "production",
+});
+
+export default withSerwist(config);
+

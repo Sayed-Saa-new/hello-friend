@@ -5,6 +5,8 @@ import { siteMetadata } from "app/data/siteMetadata";
 import { Footer } from "./components/Footer";
 import { BgGradient } from "./components/BgGradient";
 import { PageTransition } from "./components/PageTransition";
+import { ServiceWorkerRegistrar } from "./components/ServiceWorkerRegistrar";
+
 import { cx } from "./lib/utils";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
@@ -150,7 +152,9 @@ export default function RootLayout({
           </div>
           <Footer />
         </main>
+        <ServiceWorkerRegistrar />
       </body>
+
 
       <Script
         id="person-jsonld"
