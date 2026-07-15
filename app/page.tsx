@@ -33,27 +33,19 @@ export default async function Home() {
         <section>
           <div className="relative text-balance">
             <GridWrapper>
-              <AnimatedText
-                as="h1"
-                delay={HEADING_DELAY}
-                className="mx-auto max-w-2xl text-center text-4xl font-medium leading-tight tracking-tighter text-text-primary md:text-6xl md:leading-[64px]"
-              >
+              <h1 className="mx-auto max-w-2xl text-center text-4xl font-medium leading-tight tracking-tighter text-text-primary md:text-6xl md:leading-[64px]">
                 Hey, I&apos;m Syed! <br /> I build AI-powered products &
                 modern web experiences.
-              </AnimatedText>
+              </h1>
             </GridWrapper>
             <GridWrapper>
               <div className="mt-4 text-center md:mt-8">
-                <AnimatedText
-                  as="p"
-                  delay={PARAGRAPH_DELAY}
-                  className="leading-8 text-text-secondary"
-                >
+                <p className="leading-8 text-text-secondary">
                   I&apos;m a Software & AI Engineer and Full-Stack Developer
                   crafting AI-powered products, secure authentication systems,
                   and modern web experiences. This site is my corner of the
                   internet — where I share what I build, learn, and explore.
-                </AnimatedText>
+                </p>
               </div>
             </GridWrapper>
           </div>
