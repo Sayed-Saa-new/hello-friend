@@ -8,7 +8,9 @@ if (!process.env.VELITE_STARTED && (isDev || isBuild)) {
 
 /** @type {import('next').NextConfig} */
 const config = {
+  turbopack: {},
   trailingSlash: false,
+
   async redirects() {
     return [
       // Handle trailing slashes on blog posts (Google Search Console 404s)
@@ -51,36 +53,19 @@ const config = {
         destination: "https://wizardly-payne-b3707b.netlify.app/",
         permanent: true,
       },
-      {
-        source: "/archives/v2",
-        destination: "https://braydoncoyer-2hvriu779-braydon-coyer.vercel.app/",
-        permanent: true,
-      },
-      {
-        source: "/archives/v3",
-        destination:
-          "https://braydoncoyer-dev-git-v3-braydon-coyer.vercel.app/",
-        permanent: true,
-      },
-      {
-        source: "/archives/v4",
-        destination: "https://braydoncoyer.framer.website/",
-        permanent: true,
-      },
-      {
-        source: "/blog/how-to-enable-preview-mode-in-next.js-for-your-cms",
-        destination:
-          "https://braydoncoyer.dev/blog/how-to-enable-preview-mode-in-next-js-for-your-cms",
-        permanent: true,
-      },
-      {
-        source:
-          "/blog/setting-yourself-up-for-success-how-i-define-mvp-(minimal-viable-product)",
-        destination: "https://braydoncoyer.dev/blog/how-i-define-mvp",
-        permanent: true,
-      },
     ];
   },
 };
 
-export default config;
+import withSerwistInit from "@serwist/next";
+
+const withSerwist = withSerwistInit({
+  swSrc: "app/sw.ts",
+  swDest: "public/sw.js",
+  cacheOnNavigation: true,
+  reloadOnOnline: true,
+  disable: process.env.NODE_ENV !== "production",
+});
+
+export default withSerwist(config);
+

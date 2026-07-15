@@ -1,10 +1,12 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import Navbar from "app/components/Navbar";
 import { siteMetadata } from "app/data/siteMetadata";
 import { Footer } from "./components/Footer";
 import { BgGradient } from "./components/BgGradient";
 import { PageTransition } from "./components/PageTransition";
+import { ServiceWorkerRegistrar } from "./components/ServiceWorkerRegistrar";
+
 import { cx } from "./lib/utils";
 import { GeistMono } from "geist/font/mono";
 import { GeistSans } from "geist/font/sans";
@@ -74,7 +76,25 @@ export const metadata: Metadata = {
   verification: {
     google: "4GW5hFWsbJa_98tGQoSUIX-OAfhGOfhh7ZLsxEoHqc0",
   },
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    title: "Syed",
+    statusBarStyle: "black-translucent",
+  },
+  icons: {
+    icon: [
+      { url: "/favicon.png" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+  },
 
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0a0a0c",
 };
 
 const personJsonLd = {
@@ -132,7 +152,9 @@ export default function RootLayout({
           </div>
           <Footer />
         </main>
+        <ServiceWorkerRegistrar />
       </body>
+
 
       <Script
         id="person-jsonld"

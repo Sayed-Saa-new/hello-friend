@@ -237,21 +237,35 @@ export async function createContact(
   }
 
   try {
-    const response = await fetch(
+    const authHeader = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.LOOPS_API_KEY}`,
+    };
+
+    // 1) Add contact to Loops audience (userGroup = Blogfolio)
+    const contactRes = await fetch(
       "https://app.loops.so/api/v1/contacts/create",
       {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.LOOPS_API_KEY}`,
-        },
-        body: JSON.stringify({ email, userGroup: "Blogfolio" }),
+        headers: authHeader,
+        body: JSON.stringify({ email, userGroup: "Blogfolio", source: "syed.flinkeo.online" }),
       },
     );
 
-    if (!response.ok) {
+    // 409 = contact already exists, treat as success
+    if (!contactRes.ok && contactRes.status !== 409) {
       throw new Error("Failed to create contact");
     }
+
+    // 2) Send welcome transactional email
+    await fetch("https://app.loops.so/api/v1/transactional", {
+      method: "POST",
+      headers: authHeader,
+      body: JSON.stringify({
+        transactionalId: "cmrmclo5e02m80jyzgf4f0bh0",
+        email,
+      }),
+    }).catch(() => {}); // email failure shouldn't block signup
 
     return { success: true };
   } catch (error) {
