@@ -237,21 +237,36 @@ export async function createContact(
   }
 
   try {
-    const response = await fetch(
+    const authHeader = {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${process.env.LOOPS_API_KEY}`,
+    };
+
+    // 1) Create/update contact in Loops audience (userGroup = Blogfolio)
+    const contactRes = await fetch(
       "https://app.loops.so/api/v1/contacts/create",
       {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.LOOPS_API_KEY}`,
-        },
-        body: JSON.stringify({ email, userGroup: "Blogfolio" }),
+        headers: authHeader,
+        body: JSON.stringify({ email, userGroup: "Blogfolio", source: "syed.flinkeo.online" }),
       },
     );
 
-    if (!response.ok) {
+    // Loops returns 409 if contact already exists — treat as success
+    if (!contactRes.ok && contactRes.status !== 409) {
       throw new Error("Failed to create contact");
     }
+
+    // 2) Fire event so Loops workflow can trigger welcome email
+    await fetch("https://app.loops.so/api/v1/events/send", {
+      method: "POST",
+      headers: authHeader,
+      body: JSON.stringify({
+        email,
+        eventName: "newsletter_signup",
+        eventProperties: { source: "syed.flinkeo.online" },
+      }),
+    }).catch(() => {}); // event failure shouldn't block signup
 
     return { success: true };
   } catch (error) {
