@@ -550,3 +550,244 @@ Every hour, my portfolio checks itself for new writing, and if there is any, it 
 If you're sitting on a similar half-automated workflow — a newsletter you keep meaning to send, a status update you keep forgetting to post, a report you keep re-generating by hand — spend the four hours to close the loop. The compounding return on "system that works while you sleep" is absurd.
 
 Now if you'll excuse me, I have to `git push` this post and see whether the cron does its job.
+
+---
+
+## Appendix A: The MJML template, annotated
+
+I promised the design decisions were version-controlled. Here's the actual MJML source for the notification email, trimmed for length but structurally complete. If you strip the comments, this is what compiles into the Loops template HTML.
+
+```xml
+<mjml>
+  <mj-head>
+    <mj-title>New from Syed</mj-title>
+    <mj-preview>{{summary}}</mj-preview>
+    <mj-attributes>
+      <mj-all font-family="Inter, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" />
+      <mj-text color="#0f172a" font-size="15px" line-height="1.65" />
+      <mj-section background-color="#ffffff" padding="0" />
+    </mj-attributes>
+    <mj-style>
+      .cover-img { border-radius: 12px !important; }
+      .eyebrow { letter-spacing: 0.08em; text-transform: uppercase; }
+      a { color: #2563eb; text-decoration: none; }
+      a:hover { text-decoration: underline; }
+      @media (prefers-color-scheme: dark) {
+        .card { background: #0b1220 !important; }
+        .body-text { color: #e2e8f0 !important; }
+      }
+    </mj-style>
+  </mj-head>
+
+  <mj-body background-color="#f8fafc" width="640px">
+    <!-- Logo header -->
+    <mj-section padding="32px 24px 16px">
+      <mj-column>
+        <mj-image
+          src="https://syed.flinkeo.online/logo-light.png"
+          alt="Syed"
+          width="112px"
+          align="left"
+          padding="0"
+        />
+      </mj-column>
+    </mj-section>
+
+    <!-- Card -->
+    <mj-section background-color="#ffffff" border-radius="16px" padding="8px 8px 0" css-class="card">
+      <mj-column>
+        <mj-image
+          src="{{coverImage}}"
+          alt="{{title}}"
+          border-radius="12px"
+          css-class="cover-img"
+          padding="0"
+        />
+      </mj-column>
+    </mj-section>
+
+    <mj-section background-color="#ffffff" padding="24px 32px 8px" css-class="card">
+      <mj-column>
+        <mj-text
+          color="#2563eb"
+          font-size="12px"
+          font-weight="600"
+          css-class="eyebrow"
+          padding-bottom="12px"
+        >
+          NEW POST
+        </mj-text>
+
+        <mj-text
+          font-size="28px"
+          line-height="1.25"
+          font-weight="700"
+          color="#0f172a"
+          padding-bottom="12px"
+          css-class="body-text"
+        >
+          {{title}}
+        </mj-text>
+
+        <mj-text
+          font-size="13px"
+          color="#64748b"
+          css-class="eyebrow"
+          padding-bottom="20px"
+        >
+          {{publishedAt}} · SYED
+        </mj-text>
+
+        <mj-text font-size="16px" line-height="1.7" css-class="body-text">
+          {{summary}}
+        </mj-text>
+
+        <mj-button
+          background-color="#2563eb"
+          color="#ffffff"
+          border-radius="10px"
+          font-weight="600"
+          font-size="15px"
+          padding="28px 0 12px"
+          href="{{url}}"
+        >
+          Read the post →
+        </mj-button>
+      </mj-column>
+    </mj-section>
+
+    <!-- Signature -->
+    <mj-section background-color="#ffffff" padding="8px 32px 32px" css-class="card">
+      <mj-column>
+        <mj-divider border-color="#e2e8f0" border-width="1px" padding="16px 0" />
+        <mj-text font-size="14px" line-height="1.6" color="#475569" css-class="body-text">
+          Thanks for reading — reply anytime. Every reply hits my inbox and I read all of them.
+          <br /><br />
+          — Syed
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <!-- Footer -->
+    <mj-section padding="16px 24px 40px">
+      <mj-column>
+        <mj-text align="center" font-size="12px" color="#94a3b8">
+          <a href="https://syed.flinkeo.online">syed.flinkeo.online</a> ·
+          <a href="https://github.com/abushaidislam">GitHub</a> ·
+          <a href="https://x.com/AbushaidI">X</a>
+          <br /><br />
+          Not interested anymore? <a href="{{unsubscribeUrl}}">Unsubscribe</a>.
+        </mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>
+```
+
+A few things about that template that are load-bearing:
+
+**`mj-preview`** is the greyed-out text most inbox lists show under the subject. If you don't set it, most clients pull the first visible words of the body — which is your logo alt-text or worse. Explicitly setting it to `{{summary}}` gives every email a clean, purposeful preview line.
+
+**The `card` div and its dark-mode override** is what keeps the email readable on iOS Mail's dark mode. Without it, Apple's automatic color inversion smashes the white card into a muddy grey-blue and the black text becomes nearly invisible. `@media (prefers-color-scheme: dark)` isn't respected by Gmail's dark mode (Gmail does its own thing) but it saves iOS.
+
+**Border-radius on images inside email HTML.** This is a mess across clients. Inline `border-radius: 12px` works in Gmail, iOS Mail, and everything Webkit. Outlook Desktop ignores it and shows square corners; I've decided I'm okay with that. Adding a masking table wrapper would fix Outlook but bloats the template. Trade-off accepted.
+
+**Absolute HTTPS everywhere.** No relative URLs. No `http://`. No mixed content. If a link goes to your site, it's `https://syed.flinkeo.online/whatever`. Anything else invites Gmail's "This message might not be from who it looks like it's from" banner.
+
+## Appendix B: Compiling MJML in CI
+
+I compile the MJML to HTML in a tiny GitHub Action. When I push a change to `emails/*.mjml`, the workflow runs `mjml` and commits the resulting HTML back into the repo. Then I copy-paste the HTML into Loops when I want it live.
+
+```yaml
+# .github/workflows/mjml.yml
+name: Compile MJML
+on:
+  push:
+    paths:
+      - 'emails/**/*.mjml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun add -g mjml
+      - name: Compile
+        run: |
+          for f in emails/*.mjml; do
+            out="${f%.mjml}.html"
+            mjml "$f" -o "$out" --config.minify true
+          done
+      - name: Commit
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'chore(emails): recompile MJML'
+          file_pattern: 'emails/*.html'
+```
+
+Two minutes to set up, saves the "what does this look like compiled?" dance every time. When the HTML lands in the repo, I can open it directly in a browser to preview.
+
+## Appendix C: The unsubscribe endpoint
+
+The unsubscribe link in every email points at `https://syed.flinkeo.online/unsubscribe?token=...`. That page is a server component that does one thing:
+
+```typescript
+// app/unsubscribe/page.tsx  (framework-flavored pseudo-route)
+export default async function UnsubscribePage({ searchParams }: { searchParams: { token?: string } }) {
+  const token = searchParams.token
+  if (!token) return <p>Missing token.</p>
+
+  const { supabaseAdmin } = await import('@/integrations/supabase/client.server')
+  const { data, error } = await supabaseAdmin
+    .from('blog_subscribers')
+    .update({ confirmed: false })
+    .eq('unsubscribe_token', token)
+    .select('email')
+    .single()
+
+  if (error || !data) return <p>Link expired or already used.</p>
+  return <p>Unsubscribed {data.email}. Sorry to see you go.</p>
+}
+```
+
+I don't delete the row — I flip `confirmed` to `false`. This preserves the ledger foreign key and, more importantly, means if they re-subscribe with the same email later, I know they were here before. The subscribe endpoint upserts on email and sets `confirmed = true`, which effectively "resubscribes" them without creating a duplicate row.
+
+I also honor the `List-Unsubscribe` header — Loops adds it automatically when the template contains `{{unsubscribeUrl}}`. Gmail's one-click unsubscribe button uses that header, and if it works, users never have to leave their inbox.
+
+## Appendix D: What the logs look like
+
+Vercel logs the cron output. Here's a real (redacted) log line from this morning's 11:00 UTC run:
+
+```json
+{
+  "ok": true,
+  "processed": 30,
+  "sends": 42,
+  "results": [
+    { "guid": "https://syed.flinkeo.online/blog/automated-newsletter-vercel-cron-loops", "email": "a****@gmail.com", "ok": true },
+    { "guid": "https://syed.flinkeo.online/blog/automated-newsletter-vercel-cron-loops", "email": "b****@outlook.com", "ok": true }
+  ]
+}
+```
+
+`processed: 30` is the number of feed items considered (my feed caps at 30). `sends: 42` is how many actual Loops calls happened this run — one post × 42 subscribers. On a normal run when nothing new was published, that number is `0` and the whole thing finishes in ~200ms.
+
+I keep 30 days of Vercel function logs on the Pro plan; that's plenty of runway to catch and debug any weirdness.
+
+## Appendix E: A short defense of "boring" stacks
+
+None of the pieces here are exciting. RSS is 25 years old. Cron is older than I am. SQL uniqueness constraints are the boring-est possible idempotency mechanism. Transactional email APIs have existed forever. MJML is old enough to have gone through two design refreshes.
+
+That's exactly why this works. Every one of these primitives has been debugged by millions of engineers. When something breaks, the fix is a Stack Overflow answer from 2015, not an experimental library from last Tuesday.
+
+The exciting parts of my stack — Next 16, TanStack Start, the AI experiments in `app/api/ai/*` — are exciting precisely because they sit on top of a boring, reliable foundation. I don't want my newsletter delivery to be innovative. I want it to arrive.
+
+If you take one thing from this post, take that: use boring tools for anything that has to happen without you paying attention. Save the fancy stuff for the parts your users actually see.
+
+---
+
+Alright, that's the full tour. If you want to see the code live, it's all in the [portfolio repo](https://github.com/abushaidislam) — the RSS route is `app/rss.xml/route.ts`, the cron worker is `app/api/public/rss-to-loops/route.ts`, and the MJML source is under `emails/`. Fork it, adapt it, tell me what you improve. I'll read the reply.
+
+— Syed
+
