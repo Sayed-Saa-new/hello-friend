@@ -154,6 +154,7 @@ export default function RootLayout({
           <Footer />
         </main>
         <ServiceWorkerRegistrar />
+        <SpeedInsights />
       </body>
 
 
