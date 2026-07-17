@@ -108,15 +108,35 @@ export default async function PoemPage() {
         </div>
       </section>
 
-      {/* Body: two columns — sticky ASCII portrait card + scrolling stanzas */}
-      <section className="mx-auto max-w-6xl px-6 pb-40">
-        <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-[minmax(0,420px)_minmax(0,1fr)] lg:gap-16">
-          {/* Sticky ASCII art — blended into background, no card */}
-          <aside className="lg:self-stretch">
+      {/* Body: mobile → ASCII sits behind stanzas (fixed-center, poem scrolls over).
+          lg → two columns, sticky ASCII beside scrolling stanzas. */}
+      <section className="relative mx-auto max-w-6xl px-6 pb-40">
+        {/* Mobile ASCII backdrop — fixed center, scaled to fit, poem scrolls above */}
+        <div
+          aria-hidden
+          className="pointer-events-none fixed inset-0 z-0 flex items-center justify-center lg:hidden"
+        >
+          <pre
+            className="m-0 whitespace-pre font-mono text-[2px] leading-[2.1px] text-neutral-700/40 sm:text-[2.6px] sm:leading-[2.75px]"
+            style={{
+              letterSpacing: 0,
+              WebkitMaskImage:
+                "radial-gradient(ellipse at center, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 90%)",
+              maskImage:
+                "radial-gradient(ellipse at center, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 90%)",
+            }}
+          >
+            {POEM_ASCII_ART}
+          </pre>
+        </div>
+
+        <div className="relative z-10 grid grid-cols-1 items-start gap-12 lg:grid-cols-[minmax(0,420px)_minmax(0,1fr)] lg:gap-16">
+          {/* Desktop-only sticky ASCII column */}
+          <aside className="hidden lg:block lg:self-stretch">
             <div className="relative lg:sticky lg:top-[max(2rem,calc(50vh-231px))]">
               <pre
                 aria-hidden
-                className="m-0 whitespace-pre font-mono text-[3.2px] leading-[3.4px] text-neutral-700/70 md:text-[3.6px] md:leading-[3.8px] lg:text-[3.25px] lg:leading-[3.45px] xl:text-[3.6px] xl:leading-[3.8px]"
+                className="m-0 whitespace-pre font-mono text-[3.25px] leading-[3.45px] text-neutral-700/70 xl:text-[3.6px] xl:leading-[3.8px]"
                 style={{
                   letterSpacing: 0,
                   WebkitMaskImage:
@@ -129,7 +149,6 @@ export default async function PoemPage() {
               </pre>
             </div>
           </aside>
-
 
           {/* Stanzas */}
           <article className="relative pt-4">
