@@ -250,27 +250,67 @@ export async function createContact(
       Authorization: `Bearer ${apiKey}`,
     };
 
-    // 1) Add contact to Loops audience (userGroup = Blogfolio)
+    // 1) Add contact to Loops audience.
+    //    - subscribed: true is required for them to receive campaigns/transactionals.
+    //    - mailingLists lets us subscribe them to a specific list when configured.
+    const mailingListId = process.env.LOOPS_MAILING_LIST_ID;
+    const contactPayload: Record<string, unknown> = {
+      email,
+      subscribed: true,
+      userGroup: "Blogfolio",
+      source: "syed.flinkeo.online",
+    };
+    if (mailingListId) {
+      contactPayload.mailingLists = { [mailingListId]: true };
+    }
+
     const contactRes = await fetch(
       "https://app.loops.so/api/v1/contacts/create",
       {
         method: "POST",
         headers: authHeader,
-        body: JSON.stringify({
-          email,
-          userGroup: "Blogfolio",
-          source: "syed.flinkeo.online",
-        }),
+        body: JSON.stringify(contactPayload),
       },
     );
 
-    if (!contactRes.ok && contactRes.status !== 409) {
-      const body = await contactRes.text().catch(() => "");
+    const contactBody = await contactRes.text().catch(() => "");
+    let contactJson: { success?: boolean; message?: string } = {};
+    try {
+      contactJson = contactBody ? JSON.parse(contactBody) : {};
+    } catch {
+      /* non-JSON */
+    }
+
+    // Loops returns 409 (or success:false with "already on list") for existing contacts.
+    // Try to update them instead so subscribed/mailingLists get refreshed.
+    const alreadyExists =
+      contactRes.status === 409 ||
+      (contactJson.message ?? "").toLowerCase().includes("already");
+
+    if (alreadyExists) {
+      const updateRes = await fetch(
+        "https://app.loops.so/api/v1/contacts/update",
+        {
+          method: "PUT",
+          headers: authHeader,
+          body: JSON.stringify(contactPayload),
+        },
+      );
+      if (!updateRes.ok) {
+        const body = await updateRes.text().catch(() => "");
+        console.warn(
+          `[newsletter] Loops contacts/update failed: ${updateRes.status} ${body}`,
+        );
+      }
+    } else if (!contactRes.ok || contactJson.success === false) {
       console.error(
-        `[newsletter] Loops contacts/create failed: ${contactRes.status} ${body}`,
+        `[newsletter] Loops contacts/create failed: ${contactRes.status} ${contactBody}`,
       );
       throw new Error("Failed to create contact");
+    } else {
+      console.log(`[newsletter] Loops contact created for ${email}`);
     }
+
 
     // 2) Fire the welcome transactional email explicitly when a template ID is set.
     //    If not configured, rely on Loops Audience/Event automation instead.
