@@ -1,8 +1,1 @@
-{
-  "crons": [
-    {
-      "path": "/api/public/rss-to-loops",
-      "schedule": "0 * * * *"
-    }
-  ]
-}
+{}
