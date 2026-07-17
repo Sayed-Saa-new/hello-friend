@@ -180,7 +180,7 @@ function DesktopNav({ navigationLinks }: { navigationLinks: NavigationLink[] }) 
   );
 }
 
-function MobileNav() {
+function MobileNav({ navigationLinks }: { navigationLinks: NavigationLink[] }) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const path = usePathname();
 
