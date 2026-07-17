@@ -250,7 +250,7 @@ export async function createContact(
       Authorization: `Bearer ${apiKey}`,
     };
 
-    // 1) Add contact to Loops audience (userGroup = Blogfolio)
+    // 1) Add contact to Loops audience.
     const contactRes = await fetch(
       "https://app.loops.so/api/v1/contacts/create",
       {
@@ -264,7 +264,7 @@ export async function createContact(
       },
     );
 
-    if (!contactRes.ok && contactRes.status !== 409) {
+    if (!contactRes.ok) {
       const body = await contactRes.text().catch(() => "");
       console.error(
         `[newsletter] Loops contacts/create failed: ${contactRes.status} ${body}`,
@@ -272,11 +272,36 @@ export async function createContact(
       throw new Error("Failed to create contact");
     }
 
-    // Welcome email is handled independently by Loops (Event/Audience automation).
-    // We only create the contact here; Loops fires the welcome mail on its own.
+    // 2) Fire the welcome transactional email explicitly when a template ID is set.
+    //    If not configured, rely on Loops Audience/Event automation instead.
+    if (welcomeTemplateId) {
+      try {
+        const welcomeRes = await fetch(
+          "https://app.loops.so/api/v1/transactional",
+          {
+            method: "POST",
+            headers: authHeader,
+            body: JSON.stringify({
+              transactionalId: welcomeTemplateId,
+              email,
+              dataVariables: {
+                site: "syed.flinkeo.online",
+              },
+            }),
+          },
+        );
+        if (!welcomeRes.ok) {
+          const body = await welcomeRes.text().catch(() => "");
+          console.warn(
+            `[newsletter] Loops welcome send failed: ${welcomeRes.status} ${body}`,
+          );
+        }
+      } catch (mailErr) {
+        console.warn("[newsletter] Welcome email error:", mailErr);
+      }
+    }
 
     // 3) Persist subscriber locally so the RSS-to-Loops cron can email them.
-
     try {
       const supabase = await createSupabaseAdminClient();
       await supabase
