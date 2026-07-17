@@ -111,19 +111,19 @@ export default async function PoemPage() {
       {/* Body: mobile → ASCII sits behind stanzas (fixed-center, poem scrolls over).
           lg → two columns, sticky ASCII beside scrolling stanzas. */}
       <section className="relative mx-auto max-w-6xl px-6 pb-40">
-        {/* Mobile ASCII backdrop — fixed center, scaled to fit, poem scrolls above */}
+        {/* Mobile ASCII backdrop — fixed, centered on screen, sits behind the scrolling poem */}
         <div
           aria-hidden
-          className="pointer-events-none fixed inset-0 z-0 flex items-center justify-center lg:hidden"
+          className="pointer-events-none fixed inset-0 -z-10 flex items-center justify-center lg:hidden"
         >
           <pre
-            className="m-0 whitespace-pre font-mono text-[2px] leading-[2.1px] text-neutral-700/40 sm:text-[2.6px] sm:leading-[2.75px]"
+            className="m-0 whitespace-pre text-center font-mono text-[2.1px] leading-[2.2px] text-neutral-700/25 sm:text-[2.7px] sm:leading-[2.85px]"
             style={{
               letterSpacing: 0,
               WebkitMaskImage:
-                "radial-gradient(ellipse at center, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 90%)",
+                "radial-gradient(ellipse at center, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 88%)",
               maskImage:
-                "radial-gradient(ellipse at center, rgba(0,0,0,1) 45%, rgba(0,0,0,0) 90%)",
+                "radial-gradient(ellipse at center, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 88%)",
             }}
           >
             {POEM_ASCII_ART}
