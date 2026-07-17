@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { showPoemFlag } from "../flags";
 import { PoemStanza } from "./PoemStanza";
 import { POEM_ASCII_ART } from "./ascii-art";
+import { poemSerif } from "./fonts";
 
 export const dynamic = "force-dynamic";
 
