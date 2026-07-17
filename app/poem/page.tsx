@@ -103,8 +103,7 @@ export default async function PoemPage() {
         <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-[minmax(0,420px)_minmax(0,1fr)] lg:gap-16">
           {/* Sticky ASCII art card */}
           <aside className="lg:self-stretch">
-            <div className="lg:sticky lg:top-0 lg:flex lg:min-h-screen lg:items-center lg:py-8">
-            <div className="group relative w-full overflow-hidden rounded-3xl border border-neutral-200/70 bg-white/60 p-4 shadow-[0_20px_60px_-30px_rgba(80,50,20,0.25)] backdrop-blur-md">
+            <div className="group relative w-full overflow-hidden rounded-3xl border border-neutral-200/70 bg-white/60 p-4 shadow-[0_20px_60px_-30px_rgba(80,50,20,0.25)] backdrop-blur-md lg:sticky lg:top-[max(2rem,calc(50vh-231px))]">
               {/* soft inner glow */}
               <div
                 aria-hidden
@@ -136,7 +135,6 @@ export default async function PoemPage() {
                 <span>Portrait · ASCII</span>
                 <span>— of a memory</span>
               </figcaption>
-            </div>
             </div>
           </aside>
 
