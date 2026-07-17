@@ -111,40 +111,22 @@ export default async function PoemPage() {
       {/* Body: two columns — sticky ASCII portrait card + scrolling stanzas */}
       <section className="mx-auto max-w-6xl px-6 pb-40">
         <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-[minmax(0,420px)_minmax(0,1fr)] lg:gap-16">
-          {/* Sticky ASCII art card */}
+          {/* Sticky ASCII art — blended into background, no card */}
           <aside className="lg:self-stretch">
-            <div className="group relative w-full overflow-hidden rounded-3xl border border-neutral-200/70 bg-white/60 p-4 shadow-[0_20px_60px_-30px_rgba(80,50,20,0.25)] backdrop-blur-md lg:sticky lg:top-[max(2rem,calc(50vh-231px))]">
-              {/* soft inner glow */}
-              <div
+            <div className="relative lg:sticky lg:top-[max(2rem,calc(50vh-231px))]">
+              <pre
                 aria-hidden
-                className="pointer-events-none absolute inset-0 rounded-3xl"
+                className="m-0 whitespace-pre font-mono text-[3.2px] leading-[3.4px] text-neutral-700/70 md:text-[3.6px] md:leading-[3.8px] lg:text-[3.25px] lg:leading-[3.45px] xl:text-[3.6px] xl:leading-[3.8px]"
                 style={{
-                  background:
-                    "radial-gradient(400px 200px at 50% 0%, rgba(255,220,180,0.25), transparent 60%)",
+                  letterSpacing: 0,
+                  WebkitMaskImage:
+                    "radial-gradient(ellipse at center, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 95%)",
+                  maskImage:
+                    "radial-gradient(ellipse at center, rgba(0,0,0,1) 55%, rgba(0,0,0,0) 95%)",
                 }}
-              />
-              <div className="relative overflow-hidden rounded-2xl bg-[#fdfaf5]">
-                <pre
-                  aria-hidden
-                  className="m-0 overflow-hidden whitespace-pre p-3 font-mono text-[3.2px] leading-[3.4px] text-neutral-800 md:text-[3.6px] md:leading-[3.8px] lg:text-[3.25px] lg:leading-[3.45px] xl:text-[3.6px] xl:leading-[3.8px]"
-                  style={{ letterSpacing: 0 }}
-                >
-                  {POEM_ASCII_ART}
-                </pre>
-                {/* vignette overlay for mood */}
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute inset-0"
-                  style={{
-                    background:
-                      "radial-gradient(circle at 50% 50%, transparent 50%, rgba(60, 40, 20, 0.15) 100%)",
-                  }}
-                />
-              </div>
-              <figcaption className="mt-4 flex items-center justify-between px-2 pb-1 font-mono text-[10px] uppercase tracking-[0.3em] text-neutral-500">
-                <span>Portrait · ASCII</span>
-                <span>— of a memory</span>
-              </figcaption>
+              >
+                {POEM_ASCII_ART}
+              </pre>
             </div>
           </aside>
 
