@@ -238,12 +238,15 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
   return (
     <nav
       ref={navRef}
-      aria-label="Table of contents"
+      role="navigation"
+      aria-labelledby="toc-heading"
       className="toc-container"
       style={{ top: `${topPosition}px` }}
     >
       <div ref={contentRef} className="toc-content">
-        <p className="toc-label">Table of Contents</p>
+        <h2 id="toc-heading" className="toc-label">
+          Table of Contents
+        </h2>
 
         {/* SVG path showing the TOC structure */}
         <svg className="toc-path-svg" aria-hidden="true">
