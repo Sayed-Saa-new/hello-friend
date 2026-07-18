@@ -81,7 +81,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
       {/* Table of Contents - fixed position, outside content flow */}
       <TableOfContents headings={post.headings} />
 
-      <article className={`${poemSerif.variable} space-y-1 md:space-y-4`}>
+      <article className={`${poemSerif.variable} space-y-6 md:space-y-8`}>
         {/* Article Banner Image */}
       <div className="relative">
         {/* Lines */}
@@ -248,7 +248,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
       )}
 
       {/* Content */}
-      <div className="wrapper z-10">
+      <div className="wrapper z-10 -mt-4 md:mt-0">
         <FumadocsMDX code={post.code} />
       </div>
 
