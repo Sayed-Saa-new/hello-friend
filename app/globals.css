@@ -369,7 +369,7 @@ article.prose tbody tr:hover td {
      padding from the page border matches the content column. */
   left: auto;
   width: 200px;
-  max-height: calc(100vh - 120px);
+  max-height: calc(100vh - 144px);
   overflow-y: auto;
   overflow-x: hidden;
   overscroll-behavior: contain;
@@ -404,7 +404,7 @@ article.prose tbody tr:hover td {
 /* The content wrapper */
 .toc-content {
   position: relative;
-  padding-left: 20px;
+  padding-left: 28px;
 }
 
 /* SVG container for the path line */
@@ -432,7 +432,7 @@ article.prose tbody tr:hover td {
 
 .toc-indicator {
   position: absolute;
-  left: -3px;
+  left: 5px;
   width: 7px;
   height: 7px;
   background-color: var(--toc-accent);
