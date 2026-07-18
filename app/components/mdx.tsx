@@ -253,20 +253,32 @@ const Pre = ({ children, ...props }: React.HTMLAttributes<HTMLPreElement>) => {
 };
 
 function Code({ children, ...props }) {
-  const codeHTML = highlight(children);
-  const isMultiLine = children.includes("\n");
+  const raw = typeof children === "string" ? children : String(children ?? "");
+  const codeHTML = highlight(raw);
+  const isMultiLine = raw.includes("\n");
   const [isCopied, setIsCopied] = useState(false);
 
-  const className = props.className || "";
-  const matches = className.match(/language-(?<lang>.*?)(:(?<filename>.*))?$/);
-  const language = matches?.groups?.lang ?? "";
+  const rawClass = (props as any).className;
+  const className: string = Array.isArray(rawClass)
+    ? rawClass.join(" ")
+    : rawClass || "";
+  const matches = className.match(/language-(?<lang>[^\s:]+)(:(?<filename>.*))?/);
+  const language = (matches?.groups?.lang ?? "").toLowerCase();
   const filename = matches?.groups?.filename ?? "";
+
+  // Render mermaid diagrams instead of a code block
+  if (isMultiLine && language === "mermaid") {
+    return (
+      <MdxReveal blur={12} y={18}>
+        <MdxMermaid chart={raw.replace(/\n$/, "")} />
+      </MdxReveal>
+    );
+  }
 
   const copyToClipboard = () => {
     navigator.clipboard
-      .writeText(children)
+      .writeText(raw)
       .then(() => {
-        console.log("Code copied to clipboard");
         setIsCopied(true);
         setTimeout(() => setIsCopied(false), 3000);
       })
@@ -276,7 +288,13 @@ function Code({ children, ...props }) {
   };
 
   if (!isMultiLine) {
-    return <code suppressHydrationWarning dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
+    return (
+      <code
+        suppressHydrationWarning
+        className="rounded bg-neutral-100 px-1.5 py-0.5 font-mono text-[0.9em] text-neutral-800 dark:bg-neutral-800 dark:text-neutral-100"
+        dangerouslySetInnerHTML={{ __html: codeHTML }}
+      />
+    );
   }
 
   return (
