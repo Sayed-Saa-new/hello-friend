@@ -19,6 +19,7 @@ import { Suspense } from "react";
 import { Metadata, ResolvingMetadata } from "next";
 import { AudioPlayer } from "@/app/components/AudioPlayer";
 import { TableOfContents } from "@/app/components/TableOfContents";
+import { HashScroller } from "@/app/components/HashScroller";
 import { poemSerif } from "@/app/poem/fonts";
 
 interface BlogPageProps {
