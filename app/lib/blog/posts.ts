@@ -129,3 +129,30 @@ export function getPostsByCategory(posts: Blog[], category: string): Blog[] {
     p.categories?.some((c) => c.toLowerCase() === category.toLowerCase()),
   );
 }
+
+/** Preferred server-side accessor. Merges Supabase + MDX, published only. */
+export async function fetchAndSortBlogPostsAsync(): Promise<Blog[]> {
+  return getAllPosts();
+}
+
+export async function getRelatedBlogPosts(
+  currentPost: Blog,
+  maxResults = 3,
+): Promise<Blog[]> {
+  const allPosts = (await getAllPosts()).filter(
+    (p) => p.slug !== currentPost.slug,
+  );
+  const sameCategories = allPosts.filter((p) =>
+    p.categories.some((c) => currentPost.categories.includes(c)),
+  );
+  const sortedByRelevance = sameCategories.sort((a, b) => {
+    const aMatches = a.categories.filter((c) => currentPost.categories.includes(c)).length;
+    const bMatches = b.categories.filter((c) => currentPost.categories.includes(c)).length;
+    return bMatches - aMatches;
+  });
+  if (sortedByRelevance.length >= maxResults) return sortedByRelevance.slice(0, maxResults);
+  const remaining = allPosts.filter(
+    (p) => !sortedByRelevance.some((r) => r.slug === p.slug),
+  );
+  return [...sortedByRelevance, ...remaining].slice(0, maxResults);
+}
