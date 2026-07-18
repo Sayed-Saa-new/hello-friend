@@ -28,7 +28,7 @@ function generateTocPath(
   if (headings.length === 0) return "";
 
   let pathD = "";
-  let prevX = X_H2;
+  let prevX = X_BY_LEVEL[2];
   let prevY = 0;
   let isFirstPoint = true;
 
