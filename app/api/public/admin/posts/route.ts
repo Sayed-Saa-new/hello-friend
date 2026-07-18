@@ -65,6 +65,8 @@ export async function GET(req: NextRequest) {
       publishedAt: p.publishedAt,
       draft: p.draft ?? false,
       sentCount: sentBySlug.get(p.slug) ?? 0,
+      coverImage: p.imageName || null,
+      cover_image_url: p.imageName || null,
     }));
 
   return Response.json(
