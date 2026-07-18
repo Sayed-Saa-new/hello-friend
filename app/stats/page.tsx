@@ -22,9 +22,16 @@ import { GridWrapper } from "@/app/components/GridWrapper";
 import { StatsPageWrapper } from "@/app/components/stats/StatsPageWrapper";
 
 export const metadata: Metadata = {
-  title: "Stats | Syed — Abushaid Islam",
+  title: "Stats — Live GitHub, Blog & Site Metrics by Syed",
   description:
-    "Numbers, metrics, and GitHub activity for Syed — articles, views, contributions, and more.",
+    "Live numbers behind Syed's portfolio — GitHub contributions, article views, top posts, Lighthouse scores, and site activity for abushaidislam.",
+  alternates: { canonical: "/stats" },
+  openGraph: {
+    title: "Stats — Live GitHub, Blog & Site Metrics by Syed",
+    description:
+      "GitHub contributions, article views, top posts, and Lighthouse scores.",
+    url: "/stats",
+  },
 };
 
 // Revamp date: March 31, 2025
