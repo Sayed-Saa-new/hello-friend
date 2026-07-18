@@ -52,8 +52,8 @@ export async function GET(req: NextRequest) {
     sentBySlug.set(r.slug as string, (sentBySlug.get(r.slug as string) ?? 0) + 1);
   }
 
-  const list = [...posts]
-    .filter((p) => !p.draft)
+  const allPosts = await getAllPostsIncludingDrafts();
+  const list = allPosts
     .sort(
       (a, b) =>
         new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
@@ -63,6 +63,7 @@ export async function GET(req: NextRequest) {
       title: p.title,
       summary: p.summary,
       publishedAt: p.publishedAt,
+      draft: p.draft ?? false,
       sentCount: sentBySlug.get(p.slug) ?? 0,
     }));
 
