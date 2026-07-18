@@ -388,8 +388,8 @@ article.prose tbody tr:hover td {
 @media (min-width: 1100px) {
   #article-content.wrapper {
     display: block;
-    padding-left: 48px;
-    padding-right: 280px;
+    padding-left: 72px;
+    padding-right: 240px;
     max-width: 100%;
   }
   #article-content.wrapper > * {
