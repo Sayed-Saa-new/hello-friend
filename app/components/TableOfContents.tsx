@@ -209,7 +209,7 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
         : activeLink.classList.contains("toc-link--h3")
           ? 3
           : 2;
-    const left = ({ 1: -9, 2: -3, 3: 11, 4: 25 } as const)[level as 1 | 2 | 3 | 4];
+    const left = ({ 1: -1, 2: 5, 3: 19, 4: 33 } as const)[level as 1 | 2 | 3 | 4];
 
     indicatorRef.current.style.top = `${top}px`;
     indicatorRef.current.style.left = `${left}px`;
