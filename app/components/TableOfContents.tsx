@@ -78,8 +78,10 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
   const [supportsAnchors, setSupportsAnchors] = useState(false);
   const [topPosition, setTopPosition] = useState(140);
   const [rightPosition, setRightPosition] = useState(16);
+  const [isVisible, setIsVisible] = useState(true);
   const [pathData, setPathData] = useState("");
   const fixedTop = 140; // The fixed top position when scrolled
+
 
   // Check for anchor positioning support on mount
   useEffect(() => {
@@ -89,8 +91,9 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
   // Track scroll position + horizontal alignment so TOC side padding
   // matches the content column's side padding from the page border.
   useEffect(() => {
-    const contentWrapper = document.querySelector("article .wrapper.z-10");
+    const contentWrapper = document.getElementById("article-content");
     if (!contentWrapper) return;
+
 
     const recalc = () => {
       const wrapperRect = contentWrapper.getBoundingClientRect();
@@ -102,7 +105,13 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
       const contentLeft = innerRect ? innerRect.left : wrapperRect.left;
       const sidePadding = Math.max(16, contentLeft);
       setRightPosition(sidePadding);
+      // Hide the TOC once the article content has scrolled past the TOC's
+      // fixed top — otherwise it overlaps the newsletter / related posts.
+      const tocHeight = navRef.current?.offsetHeight ?? 300;
+      const bottomThreshold = Math.max(fixedTop, wrapperRect.top) + tocHeight;
+      setIsVisible(wrapperRect.bottom > bottomThreshold);
     };
+
 
     recalc();
 
@@ -242,8 +251,16 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
       role="navigation"
       aria-labelledby="toc-heading"
       className="toc-container"
-      style={{ top: `${topPosition}px`, right: `${rightPosition}px` }}
+      style={{
+        top: `${topPosition}px`,
+        right: `${rightPosition}px`,
+        opacity: isVisible ? 1 : 0,
+        pointerEvents: isVisible ? "auto" : "none",
+        transition: "opacity 200ms ease-out",
+      }}
+      aria-hidden={!isVisible}
     >
+
       <div ref={contentRef} className="toc-content">
         <h2 id="toc-heading" className="toc-label">
           Table of Contents
