@@ -36,7 +36,7 @@ function generateTocPath(
     const pos = positions.get(heading.slug);
     if (!pos) return;
 
-    const x = heading.level === 2 ? X_H2 : X_H3;
+    const x = X_BY_LEVEL[(heading.level as 1 | 2 | 3 | 4) ?? 2] ?? X_BY_LEVEL[2];
     const y = pos.top;
 
     if (isFirstPoint) {
