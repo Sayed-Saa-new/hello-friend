@@ -121,6 +121,20 @@ const personJsonLd = {
   ],
 };
 
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Syed",
+  alternateName: "Syed — Abushaid Islam",
+  url: siteMetadata.siteUrl,
+  publisher: {
+    "@type": "Person",
+    name: "Abushaid Islam",
+    alternateName: "Syed",
+    url: siteMetadata.siteUrl,
+  },
+};
+
 export default async function RootLayout({
   children,
 }: Readonly<{
