@@ -582,6 +582,13 @@ article.prose tbody tr:hover td {
   color: var(--toc-accent);
 }
 
+/* H1 headings - Article title level (rare in body) */
+.toc-link--h1 {
+  font-weight: 600;
+  color: var(--toc-text-primary);
+  letter-spacing: -0.005em;
+}
+
 /* H2 headings - Main sections */
 .toc-link--h2 {
   font-weight: 500;
@@ -595,6 +602,16 @@ article.prose tbody tr:hover td {
   color: var(--toc-text-secondary);
   padding-left: 14px;
 }
+
+/* H4 headings - Deeper subsections (further indented) */
+.toc-link--h4 {
+  font-weight: 400;
+  font-size: 11px;
+  color: var(--toc-text-secondary);
+  padding-left: 28px;
+  opacity: 0.9;
+}
+
 
 /* ===========================================
    Interactive States

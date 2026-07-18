@@ -8,9 +8,15 @@ interface TableOfContentsProps {
   headings: TocHeading[];
 }
 
-// X positions for SVG path (aligned with dot positions: -3 for H2, 11 for H3)
-const X_H2 = 0;
-const X_H3 = 14;
+// X positions for SVG path aligned with dot positions per heading level.
+// Kept in sync with .toc-link--hN padding-left in globals.css.
+const X_BY_LEVEL: Record<1 | 2 | 3 | 4, number> = {
+  1: -6,
+  2: 0,
+  3: 14,
+  4: 28,
+};
+
 
 /**
  * Generate SVG path that traces the TOC structure with indents for H3s
@@ -22,7 +28,7 @@ function generateTocPath(
   if (headings.length === 0) return "";
 
   let pathD = "";
-  let prevX = X_H2;
+  let prevX = X_BY_LEVEL[2];
   let prevY = 0;
   let isFirstPoint = true;
 
@@ -30,7 +36,7 @@ function generateTocPath(
     const pos = positions.get(heading.slug);
     if (!pos) return;
 
-    const x = heading.level === 2 ? X_H2 : X_H3;
+    const x = X_BY_LEVEL[(heading.level as 1 | 2 | 3 | 4) ?? 2] ?? X_BY_LEVEL[2];
     const y = pos.top;
 
     if (isFirstPoint) {
@@ -195,8 +201,15 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
 
     // Calculate horizontal position based on link's padding
     // H3 links have padding-left, so the dot should shift right
-    const isH3 = activeLink.classList.contains("toc-link--h3");
-    const left = isH3 ? 11 : -3; // Shift right for H3s to align with indented text
+    // Align dot with the link's indent (kept in sync with X_BY_LEVEL / .toc-link--hN padding).
+    const level = activeLink.classList.contains("toc-link--h1")
+      ? 1
+      : activeLink.classList.contains("toc-link--h4")
+        ? 4
+        : activeLink.classList.contains("toc-link--h3")
+          ? 3
+          : 2;
+    const left = ({ 1: -9, 2: -3, 3: 11, 4: 25 } as const)[level as 1 | 2 | 3 | 4];
 
     indicatorRef.current.style.top = `${top}px`;
     indicatorRef.current.style.left = `${left}px`;
