@@ -79,8 +79,11 @@ export default async function BlogPage({ params }: BlogPageProps) {
 
   return (
     <>
+      {/* Deep-link smooth scroll for #slug URLs (waits for MDX to mount). */}
+      <HashScroller />
       {/* Table of Contents - fixed position, outside content flow */}
       <TableOfContents headings={post.headings} />
+
 
       <article className={`${poemSerif.variable} space-y-6 md:space-y-8`}>
         {/* Article Banner Image */}
