@@ -330,7 +330,6 @@ function Code({ children, ...props }) {
       </div>
     </MdxReveal>
   );
-  );
 }
 
 function slugify(str) {
