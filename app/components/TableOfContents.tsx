@@ -88,7 +88,7 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
   const [pathData, setPathData] = useState("");
   const [progress, setProgress] = useState(0);
   const [copiedId, setCopiedId] = useState<string | null>(null);
-  const fixedTop = 96; // The fixed top position when scrolled
+  const fixedTop = 72; // The fixed top position when scrolled
 
 
   // Check for anchor positioning support on mount
