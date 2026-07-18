@@ -153,8 +153,11 @@ function Pre({ children }: any) {
   const codeEl = React.Children.toArray(children).find(
     (c: any) => c?.props,
   ) as any;
-  const className: string = codeEl?.props?.className || "";
-  const language = className.match(/language-([\w-]+)/)?.[1];
+  const rawClass = codeEl?.props?.className;
+  const className: string = Array.isArray(rawClass)
+    ? rawClass.join(" ")
+    : rawClass || "";
+  const language = className.match(/language-([\w-]+)/)?.[1]?.toLowerCase();
   const raw = extractText(codeEl?.props?.children).replace(/\n$/, "");
 
   if (language === "mermaid") {
