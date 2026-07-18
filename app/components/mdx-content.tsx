@@ -4,6 +4,7 @@ import { highlight } from "sugar-high";
 import { HorizontalLine } from "./HorizontalLine";
 import { MdxMermaid } from "./MdxMermaid";
 import { MdxCodeBlock } from "./MdxCodeBlock";
+import { MdxReveal } from "./MdxReveal";
 import Link from "next/link";
 
 interface MDXProps {
@@ -11,6 +12,14 @@ interface MDXProps {
   components?: Record<string, React.ComponentType>;
   [key: string]: any;
 }
+
+// Shared typographic style — Fraunces serif, generous rhythm for focused reading.
+const proseStyle: React.CSSProperties = {
+  fontFeatureSettings: '"liga", "dlig", "kern"',
+  fontVariationSettings: '"SOFT" 100, "opsz" 24',
+  letterSpacing: "-0.003em",
+  wordSpacing: "0.01em",
+};
 
 function Table({ data }) {
   let headers = data.headers.map((header, index) => (
