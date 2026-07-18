@@ -193,7 +193,7 @@ pre code .sh__line::before {
 .prose h2,
 h3,
 h4 {
-  @apply font-medium tracking-tighter !important;
+  @apply font-medium! tracking-tighter!;
 }
 
 .prose strong {
