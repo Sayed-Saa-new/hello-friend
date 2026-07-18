@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
 import { createSupabaseAdminClient } from "@/app/lib/supabase/server";
-import { posts } from "#site/content";
+import { getAllPostsIncludingDrafts } from "@/app/lib/blog/posts";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
