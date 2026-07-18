@@ -109,13 +109,7 @@ export async function GET(req: NextRequest) {
   if (!authorize(req)) return new Response("Unauthorized", { status: 401 });
 
   // Only the newest published post — daily cron only sends the freshest post.
-  const recent = [...posts]
-    .filter((p) => !p.draft)
-    .sort(
-      (a, b) =>
-        new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
-    )
-    .slice(0, 3);
+  const recent = (await getAllPosts()).slice(0, 3);
 
   const results: Awaited<ReturnType<typeof sendPostToSubscribers>>[] = [];
   for (const post of recent) {
