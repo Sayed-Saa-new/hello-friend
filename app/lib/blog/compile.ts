@@ -1,4 +1,5 @@
 import { compile } from "@mdx-js/mdx";
+import remarkGfm from "remark-gfm";
 import { extractHeadingsFromMdx, TocHeading } from "@/app/lib/toc-utils";
 
 export type CompiledPost = {
@@ -16,6 +17,7 @@ export async function compileMdxToCode(source: string): Promise<CompiledPost> {
   const compiled = await compile(source, {
     outputFormat: "function-body",
     development: false,
+    remarkPlugins: [remarkGfm],
   });
   return {
     code: String(compiled),
