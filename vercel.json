@@ -1,1 +1,8 @@
-{}
+{
+  "crons": [
+    {
+      "path": "/api/public/send-blog-emails",
+      "schedule": "0 3 * * *"
+    }
+  ]
+}
