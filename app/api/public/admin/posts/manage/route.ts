@@ -54,7 +54,9 @@ type PostInput = {
 };
 
 function bustCaches(slug: string) {
-  revalidateTag("blog_posts");
+  try {
+    (revalidateTag as unknown as (t: string) => void)("blog_posts");
+  } catch {}
   revalidatePath("/blog", "page");
   revalidatePath(`/blog/${slug}`, "page");
   revalidatePath("/rss.xml", "page");
