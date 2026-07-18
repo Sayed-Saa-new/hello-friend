@@ -343,34 +343,40 @@ function slugify(str) {
     .replace(/\-\-+/g, "-"); // Replace multiple - with single -
 }
 
-function createHeading(level) {
-  // eslint-disable-next-line react/display-name
-  return ({ children }) => {
-    let slug = slugify(children);
-    let textSize = "text-4xl";
-    if (level === 2) textSize = "text-2xl md:text-3xl";
-    if (level === 3) textSize = "text-xl md:text-2xl";
-    if (level === 4) textSize = "text-lg md:text-xl";
-    return React.createElement(
-      `h${level}`,
-      {
-        id: slug,
-        className: `${textSize} text-text-primary font-medium leading-8 mb-6 ${level === 2 ? "mt-8" : "mt-3"} text-balance`,
-      },
-      [
-        React.createElement("a", {
-          href: `#${slug}`,
-          key: `link-${slug}`,
-          className: "anchor ",
-        }),
-      ],
-      children,
+const HEADING_SIZES: Record<number, string> = {
+  1: "text-4xl md:text-5xl leading-[1.1] mt-16 mb-8",
+  2: "text-3xl md:text-4xl leading-[1.15] mt-14 mb-6",
+  3: "text-2xl md:text-3xl leading-[1.2] mt-12 mb-5",
+  4: "text-xl md:text-2xl leading-[1.3] mt-10 mb-4",
+  5: "text-lg md:text-xl leading-[1.35] mt-8 mb-3",
+  6: "text-base md:text-lg leading-[1.4] mt-8 mb-3",
+};
+
+function createHeading(level: number) {
+  const HeadingComp = ({ children }: any) => {
+    const slug = slugify(children);
+    const Tag = `h${level}` as any;
+    return (
+      <MdxReveal blur={12} y={16}>
+        <Tag
+          id={slug}
+          className={`font-poem tracking-[-0.015em] font-medium text-text-primary ${HEADING_SIZES[level]}`}
+          style={{
+            fontFeatureSettings: '"liga", "dlig", "swsh", "kern"',
+            fontVariationSettings: '"SOFT" 100, "opsz" 144',
+          }}
+        >
+          <a href={`#${slug}`} className="anchor" aria-hidden />
+          {children}
+        </Tag>
+      </MdxReveal>
     );
   };
+  HeadingComp.displayName = `MdxH${level}`;
+  return HeadingComp;
 }
 
-function paragraph({ children }) {
-  // Check if children contains any block-level elements
+function paragraph({ children }: any) {
   const hasBlockElements = React.Children.toArray(children).some(
     (child) =>
       React.isValidElement(child) &&
@@ -378,30 +384,109 @@ function paragraph({ children }) {
       /^(div|p|ul|ol|h[1-6])$/i.test(child.type),
   );
 
-  // If there are block-level elements, render without wrapping p tag
   if (hasBlockElements) {
     return <>{children}</>;
   }
 
-  // Otherwise, wrap in a p tag as before
   return (
-    <p className="mb-6 text-base leading-8 text-text-secondary">{children}</p>
+    <MdxReveal
+      as="p"
+      className="font-poem mb-8 text-[1.15rem] md:text-[1.2rem] leading-[1.85] text-text-secondary"
+    >
+      <span style={proseStyle}>{children}</span>
+    </MdxReveal>
   );
 }
 
-function OrderedList({ children }) {
-  return <ol className="mb-8 list-decimal pl-8">{children}</ol>;
-}
-
-function UnorderedList({ children }) {
-  return <ul className="mb-8 list-disc pl-8">{children}</ul>;
-}
-
-function ListItem({ children }) {
+function OrderedList({ children }: any) {
   return (
-    <li className="mb-4 text-base leading-8 text-text-secondary">{children}</li>
+    <MdxReveal blur={8} y={12}>
+      <ol className="font-poem mb-8 list-decimal pl-8 space-y-2 text-[1.1rem] leading-[1.85] text-text-secondary" style={proseStyle}>
+        {children}
+      </ol>
+    </MdxReveal>
   );
 }
+
+function UnorderedList({ children }: any) {
+  return (
+    <MdxReveal blur={8} y={12}>
+      <ul className="font-poem mb-8 list-disc pl-8 space-y-2 text-[1.1rem] leading-[1.85] text-text-secondary" style={proseStyle}>
+        {children}
+      </ul>
+    </MdxReveal>
+  );
+}
+
+function ListItem({ children }: any) {
+  return (
+    <li className="font-poem text-[1.1rem] leading-[1.85] text-text-secondary" style={proseStyle}>
+      {children}
+    </li>
+  );
+}
+
+function StyledTable({ children }: any) {
+  return (
+    <MdxReveal blur={12} y={18}>
+      <div className="relative mb-12 -mx-2 sm:mx-0">
+        <div className="relative overflow-hidden rounded-xl border border-black/10 bg-white dark:border-white/10 dark:bg-[#0a0a0a]">
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse text-left text-[0.95rem]">
+              {children}
+            </table>
+          </div>
+        </div>
+      </div>
+    </MdxReveal>
+  );
+}
+function Thead({ children }: any) { return <thead>{children}</thead>; }
+function Tbody({ children }: any) { return <tbody>{children}</tbody>; }
+function Th({ children }: any) {
+  return (
+    <th scope="col" className="border-b border-black/10 px-6 py-5 text-[0.9rem] font-semibold text-neutral-900 first:pl-8 last:pr-8 dark:border-white/10 dark:text-white">
+      {children}
+    </th>
+  );
+}
+function Td({ children }: any) {
+  return (
+    <td className="px-6 py-5 align-top text-[0.95rem] leading-relaxed text-neutral-700 first:pl-8 last:pr-8 dark:text-neutral-300">
+      {children}
+    </td>
+  );
+}
+function Tr({ children }: any) {
+  return (
+    <tr className="border-b border-black/[0.06] transition-colors duration-150 last:border-0 hover:bg-black/[0.02] dark:border-white/[0.06] dark:hover:bg-white/[0.02]">
+      {children}
+    </tr>
+  );
+}
+
+function Blockquote({ children }: any) {
+  return (
+    <MdxReveal blur={10} y={14}>
+      <blockquote
+        className="font-poem mb-10 border-l-4 border-indigo-500 bg-neutral-50 py-4 pl-6 pr-4 text-[1.15rem] italic leading-[1.75] text-text-secondary dark:bg-neutral-900"
+        style={proseStyle}
+      >
+        {children}
+      </blockquote>
+    </MdxReveal>
+  );
+}
+
+function Hr() {
+  return (
+    <MdxReveal blur={6} y={8}>
+      <hr className="my-12 border-t border-dashed border-border-primary" />
+    </MdxReveal>
+  );
+}
+
+
 
 function FullWidthCallout({ children, type }) {
   const hasLinks = React.Children.toArray(children).some((child) => {
