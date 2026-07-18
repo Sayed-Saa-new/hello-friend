@@ -81,7 +81,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
       {/* Table of Contents - fixed position, outside content flow */}
       <TableOfContents headings={post.headings} />
 
-      <article className={`${poemSerif.variable} space-y-12`}>
+      <article className={`${poemSerif.variable} space-y-6 md:space-y-8`}>
         {/* Article Banner Image */}
       <div className="relative">
         {/* Lines */}
@@ -107,7 +107,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
         <span className="absolute bottom-[44.5px] right-[48px] z-20 hidden h-2 w-px bg-white md:block"></span>
 
         <div
-          className="drama-shadow flex h-[350px] w-full flex-col justify-end rounded-2xl bg-cover bg-center bg-no-repeat p-8 md:mb-16 md:h-[600px] md:p-16"
+          className="drama-shadow flex h-[350px] w-full flex-col justify-end rounded-2xl bg-cover bg-center bg-no-repeat p-8 md:h-[600px] md:p-16"
           style={{
             backgroundImage: `linear-gradient(to top, rgba(15, 15, 25, 0.95) 0%, rgba(15, 15, 25, 0.85) 30%, rgba(15, 15, 25, 0.55) 55%, rgba(15, 15, 25, 0.25) 80%, rgba(15, 15, 25, 0.15) 100%), url('${resolveCoverUrl(post.imageName)}')`,
           }}
