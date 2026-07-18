@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { fetchAndSortBlogPostsAsync } from "@/app/lib/utils";
+import { fetchAndSortBlogPostsAsync } from "@/app/lib/blog/posts";
 import { siteMetadata } from "@/app/data/siteMetadata";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
