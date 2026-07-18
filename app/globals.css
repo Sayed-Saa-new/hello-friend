@@ -168,10 +168,14 @@ input[type="email"] {
 }
 
 /* Fumadocs' preset decorates inline code with `` `backticks` ``; drop them. */
-article.prose :not(pre) > code::before,
-article.prose :not(pre) > code::after {
+article.prose code:not(pre code)::before,
+article.prose code:not(pre code)::after,
+.prose code:not(pre code)::before,
+.prose code:not(pre code)::after {
   content: none !important;
+  content: "" !important;
 }
+
 
 
 
