@@ -8,7 +8,17 @@ import { BgGradient } from "./BgGradient";
 import { CodePlayground } from "./CodePlayground";
 import { Details, DetailsSummary } from "./Details";
 import { LinkPreview } from "./LinkPreview";
+import { MdxMermaid } from "./MdxMermaid";
+import { MdxReveal } from "./MdxReveal";
 import type { LinkPreviewData, LinkPreviewManifest } from "@/app/lib/link-previews/types";
+
+// Shared typographic style — Fraunces serif, generous rhythm for focused reading.
+const proseStyle: React.CSSProperties = {
+  fontFeatureSettings: '"liga", "dlig", "kern"',
+  fontVariationSettings: '"SOFT" 100, "opsz" 24',
+  letterSpacing: "-0.003em",
+  wordSpacing: "0.01em",
+};
 
 interface MDXProps {
   code: string;
