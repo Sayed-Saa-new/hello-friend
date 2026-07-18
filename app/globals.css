@@ -167,6 +167,13 @@ input[type="email"] {
   text-wrap: balance;
 }
 
+/* Fumadocs' preset decorates inline code with `` `backticks` ``; drop them. */
+article.prose :not(pre) > code::before,
+article.prose :not(pre) > code::after {
+  content: none !important;
+}
+
+
 
 
 /* Wide layout utility for breaking out of blog content constraints while staying in grid */
