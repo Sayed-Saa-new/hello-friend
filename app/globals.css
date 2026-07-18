@@ -369,7 +369,7 @@ article.prose tbody tr:hover td {
      padding from the page border matches the content column. */
   left: auto;
   width: 200px;
-  max-height: calc(100vh - 120px);
+  max-height: calc(100vh - 144px);
   overflow-y: auto;
   overflow-x: hidden;
   overscroll-behavior: contain;
