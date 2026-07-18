@@ -21,9 +21,10 @@ export async function compileMdxToCode(source: string): Promise<CompiledPost> {
   const compiled = await compile(source, {
     outputFormat: "function-body",
     development: false,
-    remarkPlugins: [remarkGfm],
-    rehypePlugins: [rehypeSlug],
+    remarkPlugins: [remarkGfm, remarkMath],
+    rehypePlugins: [rehypeSlug, rehypeKatex],
   });
+
   return {
     code: String(compiled),
     headings: extractHeadingsFromMdx(source),
