@@ -70,6 +70,10 @@ async function getPostFromParams(params: BlogPageProps["params"]) {
 export default async function BlogPage({ params }: BlogPageProps) {
   const post = await getPostFromParams(params);
   const similarPosts = await getRelatedBlogPosts(post);
+  const allPosts = await getAllPosts();
+  const recentPosts = allPosts
+    .filter((p) => p.slug !== post.slug && !similarPosts.some((s) => s.slug === p.slug))
+    .slice(0, 3);
 
   const readingTime = readingDuration(post.code, {
     wordsPerMinute: 200,
