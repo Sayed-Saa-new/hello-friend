@@ -80,6 +80,8 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
   const [rightPosition, setRightPosition] = useState(16);
   const [isVisible, setIsVisible] = useState(true);
   const [pathData, setPathData] = useState("");
+  const [progress, setProgress] = useState(0);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
   const fixedTop = 140; // The fixed top position when scrolled
 
 
