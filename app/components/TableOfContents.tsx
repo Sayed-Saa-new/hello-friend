@@ -77,6 +77,7 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
   const [isMoving, setIsMoving] = useState(false);
   const [supportsAnchors, setSupportsAnchors] = useState(false);
   const [topPosition, setTopPosition] = useState(140);
+  const [rightPosition, setRightPosition] = useState(16);
   const [pathData, setPathData] = useState("");
   const fixedTop = 140; // The fixed top position when scrolled
 
@@ -85,31 +86,27 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
     setSupportsAnchors(supportsAnchorPositioning());
   }, []);
 
-  // Track scroll position to calculate dynamic top value
+  // Track scroll position + horizontal alignment so TOC side padding
+  // matches the content column's side padding from the page border.
   useEffect(() => {
-    // Find the article content wrapper (.wrapper.z-10)
     const contentWrapper = document.querySelector("article .wrapper.z-10");
     if (!contentWrapper) return;
 
-    const calculateTopPosition = () => {
-      // Get the content wrapper's position relative to the viewport
+    const recalc = () => {
       const wrapperRect = contentWrapper.getBoundingClientRect();
-
-      // If the content wrapper is below the fixed position, TOC follows it
-      // If the content wrapper has scrolled past, TOC stays fixed
-      const newTop = Math.max(fixedTop, wrapperRect.top);
-      setTopPosition(newTop);
+      setTopPosition(Math.max(fixedTop, wrapperRect.top));
+      // Mirror the content's left padding from the page edge on the right side.
+      const sidePadding = Math.max(16, wrapperRect.left);
+      setRightPosition(sidePadding);
     };
 
-    // Calculate on mount
-    calculateTopPosition();
+    recalc();
 
-    // Throttled scroll handler
     let ticking = false;
     const handleScroll = () => {
       if (!ticking) {
         requestAnimationFrame(() => {
-          calculateTopPosition();
+          recalc();
           ticking = false;
         });
         ticking = true;
@@ -117,11 +114,11 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", calculateTopPosition);
+    window.addEventListener("resize", recalc);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", calculateTopPosition);
+      window.removeEventListener("resize", recalc);
     };
   }, []);
 
@@ -241,7 +238,7 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
       role="navigation"
       aria-labelledby="toc-heading"
       className="toc-container"
-      style={{ top: `${topPosition}px` }}
+      style={{ top: `${topPosition}px`, right: `${rightPosition}px` }}
     >
       <div ref={contentRef} className="toc-content">
         <h2 id="toc-heading" className="toc-label">
