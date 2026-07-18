@@ -1,4 +1,21 @@
+import type { Metadata } from "next";
+
 export const revalidate = 30;
+
+export const metadata: Metadata = {
+  title: "Blog — AI, Auth & Full-Stack Notes by Syed",
+  description:
+    "Articles by Syed (Abushaid Islam) on AI engineering, authentication, Next.js, Supabase, and building full-stack products as a solo developer.",
+  alternates: { canonical: "/blog" },
+  openGraph: {
+    title: "Blog — AI, Auth & Full-Stack Notes by Syed",
+    description:
+      "Writing on AI engineering, authentication, and modern full-stack development.",
+    url: "/blog",
+    type: "website",
+  },
+};
+
 
 import { extractUniqueBlogCategories } from "app/lib/utils";
 import { fetchAndSortBlogPostsAsync } from "@/app/lib/blog/posts";

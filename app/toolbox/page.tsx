@@ -14,7 +14,7 @@ const easeOut = [0.22, 1, 0.36, 1] as const;
 export default function ToolboxPage() {
   return (
     <div className="relative">
-      <title>Toolbox | Syed — Abushaid Islam</title>
+      
       <span className="absolute left-1/2 top-20 -translate-y-1/2 translate-x-1/2">
         <HorizontalLine />
       </span>

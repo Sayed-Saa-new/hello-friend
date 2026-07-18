@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import { GridWrapper } from "@/app/components/GridWrapper";
 
 export const metadata: Metadata = {
-  title: "Connections | Syed",
+  title: "Connections — People Syed Has Met & Wants to Meet",
   description:
-    "An evolving list of people I've met and those I wish to meet.",
+    "An evolving list of people Syed (Abushaid Islam) has met across the AI, auth, and full-stack developer community — and those he'd like to meet next.",
+  alternates: { canonical: "/connections" },
+  robots: { index: false, follow: true },
 };
 
 export default function ConnectionsPage() {

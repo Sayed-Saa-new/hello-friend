@@ -1,4 +1,13 @@
+import type { Metadata } from "next";
 import { MDXContent } from "@/app/components/mdx";
+
+export const metadata: Metadata = {
+  title: "Changelog — What Syed Is Shipping",
+  description:
+    "A running log of updates, features and experiments Syed (Abushaid Islam) is shipping across his portfolio, Aegis Authenticator, and other projects.",
+  alternates: { canonical: "/changelog" },
+  robots: { index: false, follow: true },
+};
 import { NewsletterSignUp } from "@/app/components/NewsletterSignUp";
 import { fetchAndSortChangelogPosts } from "@/app/lib/utils";
 import { GridWrapper } from "@/app/components/GridWrapper";
@@ -8,7 +17,7 @@ export default async function ChangelogPage() {
 
   return (
     <div className="w-full space-y-16">
-      <title>Changelog | Syed</title>
+      
       <div className="mx-auto text-balance pt-14 md:pt-16">
         <GridWrapper>
           <h1 className="mx-auto max-w-2xl text-center text-4xl font-medium leading-tight tracking-tighter text-text-primary md:text-6xl md:leading-[64px]">

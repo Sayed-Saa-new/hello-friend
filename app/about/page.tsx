@@ -1,5 +1,20 @@
+import type { Metadata } from "next";
 import { NewsletterSignUp } from "@/app/components/NewsletterSignUp";
 import { HorizontalLine } from "@/app/components/HorizontalLine";
+
+export const metadata: Metadata = {
+  title: "About Syed — Software & AI Engineer from Bangladesh",
+  description:
+    "About Abushaid Islam (Syed) — a Software & AI Engineer and Full Stack Developer from Bangladesh building AI-powered products, secure auth systems, and modern web apps.",
+  alternates: { canonical: "/about" },
+  openGraph: {
+    title: "About Syed — Software & AI Engineer",
+    description:
+      "Learn about Syed (Abushaid Islam), his background, work, and the products he's building.",
+    url: "/about",
+    type: "profile",
+  },
+};
 import { getTimeOfDayGreeting } from "app/lib/utils";
 import React from "react";
 import { CurrentlyPlayingBento } from "@/app/components/CurrentlyPlayingBento";
@@ -19,7 +34,7 @@ export default function AboutPage() {
 
   return (
     <div className="relative mt-14">
-      <title>About | Syed — Abushaid Islam</title>
+      
       <div className="relative space-y-10 md:space-y-16">
         {/* Title */}
         <GridWrapper className="space-y-12">

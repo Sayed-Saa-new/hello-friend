@@ -11,10 +11,10 @@ interface TableOfContentsProps {
 // X positions for SVG path aligned with dot positions per heading level.
 // Kept in sync with .toc-link--hN padding-left in globals.css.
 const X_BY_LEVEL: Record<1 | 2 | 3 | 4, number> = {
-  1: -6,
-  2: 0,
-  3: 14,
-  4: 28,
+  1: 2,
+  2: 8,
+  3: 22,
+  4: 36,
 };
 
 
@@ -82,13 +82,13 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
   const indicatorRef = useRef<HTMLSpanElement>(null);
   const [isMoving, setIsMoving] = useState(false);
   const [supportsAnchors, setSupportsAnchors] = useState(false);
-  const [topPosition, setTopPosition] = useState(140);
+  const [topPosition, setTopPosition] = useState(72);
   const [rightPosition, setRightPosition] = useState(16);
   const [isVisible, setIsVisible] = useState(true);
   const [pathData, setPathData] = useState("");
   const [progress, setProgress] = useState(0);
   const [copiedId, setCopiedId] = useState<string | null>(null);
-  const fixedTop = 140; // The fixed top position when scrolled
+  const fixedTop = 72; // The fixed top position when scrolled
 
 
   // Check for anchor positioning support on mount
@@ -209,7 +209,7 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
         : activeLink.classList.contains("toc-link--h3")
           ? 3
           : 2;
-    const left = ({ 1: -9, 2: -3, 3: 11, 4: 25 } as const)[level as 1 | 2 | 3 | 4];
+    const left = ({ 1: -1, 2: 5, 3: 19, 4: 33 } as const)[level as 1 | 2 | 3 | 4];
 
     indicatorRef.current.style.top = `${top}px`;
     indicatorRef.current.style.left = `${left}px`;
