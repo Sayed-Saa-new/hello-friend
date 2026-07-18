@@ -344,16 +344,16 @@ article.prose tbody tr:hover td {
 
   position: fixed;
   /* Position further left to avoid overlap - account for container width */
-  left: max(1rem, calc((100vw - 1280px) / 2 - 200px));
+  left: max(1rem, calc((100vw - 1024px) / 2 - 210px));
   /* top is set dynamically via inline style */
-  width: 180px;
+  width: 200px;
   max-height: calc(100vh - 200px);
   overflow: visible;
   z-index: 40;
 }
 
 /* Hide on smaller viewports - need enough space outside container */
-@media (max-width: 1536px) {
+@media (max-width: 1100px) {
   .toc-container {
     display: none !important;
   }
