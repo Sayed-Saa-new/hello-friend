@@ -104,7 +104,13 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
       const contentLeft = innerRect ? innerRect.left : wrapperRect.left;
       const sidePadding = Math.max(16, contentLeft);
       setRightPosition(sidePadding);
+      // Hide the TOC once the article content has scrolled past the TOC's
+      // fixed top — otherwise it overlaps the newsletter / related posts.
+      const tocHeight = navRef.current?.offsetHeight ?? 300;
+      const bottomThreshold = Math.max(fixedTop, wrapperRect.top) + tocHeight;
+      setIsVisible(wrapperRect.bottom > bottomThreshold);
     };
+
 
     recalc();
 
