@@ -185,6 +185,12 @@ export default async function RootLayout({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
       />
 
+      <Script
+        id="website-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+      />
+
       <Script id="vemetric-loader" strategy="afterInteractive">
         {`
           window.vmtrcq = window.vmtrcq || [];
