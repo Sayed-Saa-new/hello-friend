@@ -225,8 +225,9 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
     e.preventDefault();
     const element = document.getElementById(slug);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      // Update URL without scroll jump
+      const top =
+        element.getBoundingClientRect().top + window.scrollY - 120;
+      window.scrollTo({ top, behavior: "smooth" });
       window.history.pushState(null, "", `#${slug}`);
     }
   };
