@@ -78,8 +78,10 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
   const [supportsAnchors, setSupportsAnchors] = useState(false);
   const [topPosition, setTopPosition] = useState(140);
   const [rightPosition, setRightPosition] = useState(16);
+  const [isVisible, setIsVisible] = useState(true);
   const [pathData, setPathData] = useState("");
   const fixedTop = 140; // The fixed top position when scrolled
+
 
   // Check for anchor positioning support on mount
   useEffect(() => {
