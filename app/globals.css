@@ -130,10 +130,7 @@ iframe {
   }
 }
 
-pre {
-  @apply drama-shadow mb-12 rounded-xl;
-}
-
+/* Legacy MDX renderer chrome (used by MdxCodeBlock for the changelog). */
 .code-frame {
   @apply flex h-9 items-center justify-between overflow-hidden rounded-t-xl border-b border-[#E2E3E5] bg-white px-4;
 }
@@ -158,87 +155,6 @@ pre {
   @apply h-[10px] w-[10px] rounded-full bg-[#E2E3E5];
 }
 
-pre code {
-  @apply py-0.5 leading-7;
-  counter-reset: sh-line-number;
-  letter-spacing: 0.1em;
-  font-size: 15px;
-}
-
-code:not(pre code) {
-  /* @apply bg-indigo-100 rounded-md px-1.5 py-0.5 whitespace-nowrap font-mono; */
-  /* --sh-class: #4f46e5;
-  --sh-identifier: #4f46e5;
-  --sh-sign: #4f46e5;
-  --sh-property: #4f46e5;
-  --sh-entity: #4f46e5;
-  --sh-jsxliterals: #4f46e5;
-  --sh-string: #4f46e5;
-  --sh-keyword: #4f46e5;
-  --sh-comment: #4f46e5; */
-
-  font-size: 15px;
-  font-variant-ligatures: none;
-
-  --sh-class: #0f172a;
-  --sh-identifier: #0f172a;
-  --sh-sign: #0f172a;
-  --sh-property: #0f172a;
-  --sh-entity: #0f172a;
-  --sh-jsxliterals: #0f172a;
-  --sh-string: #0f172a;
-  --sh-keyword: #0f172a;
-  --sh-comment: #0f172a;
-}
-
-code:not(pre code)::before,
-code:not(pre code)::after {
-  content: "`";
-}
-
-pre code .sh__line::before {
-  counter-increment: sh-line-number 1;
-  content: counter(sh-line-number);
-  margin-right: 24px;
-  text-align: right;
-  color: #cccccc;
-  font-size: 14px;
-}
-
-.prose code span {
-  @apply font-medium;
-}
-
-.prose img {
-  /* Don't apply styles to next/image */
-  @apply m-0;
-}
-
-.prose h2,
-h3,
-h4 {
-  @apply font-medium! tracking-tighter!;
-}
-
-.prose strong {
-  @apply font-medium;
-}
-
-.prose > :first-child {
-  /* Override removing top margin, causing layout shift */
-  margin-top: 1.25em !important;
-  margin-bottom: 1.25em !important;
-}
-
-pre::-webkit-scrollbar {
-  display: none;
-}
-
-pre {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
-
 /* Remove Safari input shadow on mobile */
 input[type="text"],
 input[type="email"] {
@@ -247,29 +163,22 @@ input[type="email"] {
   appearance: none;
 }
 
-.prose .tweet a {
-  text-decoration: inherit;
-  font-weight: 500;
-}
-
-table {
-  display: block;
-  max-width: fit-content;
-  overflow-x: auto;
-  white-space: nowrap;
-}
-
-.prose .callout > p {
-  margin: 0 !important;
-}
-
 .title {
   text-wrap: balance;
 }
 
-blockquote p {
-  margin: 0 !important;
+/* Fumadocs' preset decorates inline code with `` `backticks` ``; drop them. */
+article.prose code:not(pre code)::before,
+article.prose code:not(pre code)::after,
+.prose code:not(pre code)::before,
+.prose code:not(pre code)::after {
+  content: none !important;
+  content: "" !important;
 }
+
+
+
+
 
 /* Wide layout utility for breaking out of blog content constraints while staying in grid */
 .wide-layout {
