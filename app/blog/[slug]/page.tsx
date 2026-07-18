@@ -260,45 +260,76 @@ export default async function BlogPage({ params }: BlogPageProps) {
       </div>
 
 
-      {/* Similar Posts */}
-      <section className="space-y-16">
+      {/* Similar & Recent Posts */}
+      <section className="space-y-20">
         <div className="mx-auto w-fit">
           <Suspense fallback={<div>Loading reactions...</div>}>
             <ArticleReactionWrapper slug={post.slug} />
           </Suspense>
         </div>
-        <div className="relative space-y-4">
-          <span className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2">
-            <BgGradient />
-          </span>
-          <SectionTitlePill title="Similar Posts" />
-          <h2 className="mx-auto max-w-lg text-balance text-center text-3xl font-medium leading-10 tracking-tighter text-text-primary">
-            Here are some other articles you might find interesting.
-          </h2>
-        </div>
 
-        <div className="z-10">
-          <ul className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
-            <HorizontalLine />
-            {similarPosts.length > 0 ? (
-              <>
-                {similarPosts.slice(0, 3).map((post, index) => (
-                  <FeaturedBlogCard
-                    key={post.slug}
-                    slug={post.slug}
-                    imageName={post.imageName}
-                    title={post.title}
-                    summary={post.summary}
-                    className={clsx(index === 2 && "hidden sm:hidden lg:block")}
+        {similarPosts.length > 0 && (
+          <div className="space-y-10">
+            <div className="relative space-y-4">
+              <span className="pointer-events-none absolute left-1/2 top-0 -translate-x-1/2">
+                <BgGradient />
+              </span>
+              <SectionTitlePill title="Similar Posts" />
+              <h2 className="mx-auto max-w-lg text-balance text-center text-3xl font-medium leading-10 tracking-tighter text-text-primary">
+                Related reads picked for you
+              </h2>
+            </div>
+            <div className="z-10">
+              <HorizontalLine />
+              <ul className="grid grid-cols-1 gap-5 py-8 md:grid-cols-2 lg:grid-cols-3">
+                {similarPosts.slice(0, 3).map((p, index) => (
+                  <CleanPostCard
+                    key={p.slug}
+                    slug={p.slug}
+                    imageName={p.imageName}
+                    title={p.title}
+                    summary={p.summary}
+                    categories={p.categories}
+                    publishedAt={p.publishedAt}
+                    index={index}
+                    className={index === 2 ? "hidden sm:hidden lg:block" : ""}
                   />
                 ))}
-              </>
-            ) : (
-              <p>Nothing to see here yet...</p>
-            )}
-          </ul>
-          <HorizontalLine />
-        </div>
+              </ul>
+              <HorizontalLine />
+            </div>
+          </div>
+        )}
+
+        {recentPosts.length > 0 && (
+          <div className="space-y-10">
+            <div className="space-y-4">
+              <SectionTitlePill title="Recent Posts" />
+              <h2 className="mx-auto max-w-lg text-balance text-center text-3xl font-medium leading-10 tracking-tighter text-text-primary">
+                Fresh off the press
+              </h2>
+            </div>
+            <div className="z-10">
+              <HorizontalLine />
+              <ul className="grid grid-cols-1 gap-5 py-8 md:grid-cols-2 lg:grid-cols-3">
+                {recentPosts.map((p, index) => (
+                  <CleanPostCard
+                    key={p.slug}
+                    slug={p.slug}
+                    imageName={p.imageName}
+                    title={p.title}
+                    summary={p.summary}
+                    categories={p.categories}
+                    publishedAt={p.publishedAt}
+                    index={index}
+                    className={index === 2 ? "hidden sm:hidden lg:block" : ""}
+                  />
+                ))}
+              </ul>
+              <HorizontalLine />
+            </div>
+          </div>
+        )}
       </section>
       <NewsletterSignUp />
       </article>
