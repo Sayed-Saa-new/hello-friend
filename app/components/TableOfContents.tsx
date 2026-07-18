@@ -82,7 +82,7 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
   const indicatorRef = useRef<HTMLSpanElement>(null);
   const [isMoving, setIsMoving] = useState(false);
   const [supportsAnchors, setSupportsAnchors] = useState(false);
-  const [topPosition, setTopPosition] = useState(96);
+  const [topPosition, setTopPosition] = useState(72);
   const [rightPosition, setRightPosition] = useState(16);
   const [isVisible, setIsVisible] = useState(true);
   const [pathData, setPathData] = useState("");
