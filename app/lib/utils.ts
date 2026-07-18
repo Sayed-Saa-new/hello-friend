@@ -95,11 +95,31 @@ export function fetchAndSortBlogPosts(): Blog[] {
   }
 }
 
-export function getRelatedBlogPosts(
+export function fetchAndSortBlogPosts(): Blog[] {
+  // Legacy sync accessor — MDX files only. Prefer fetchAndSortBlogPostsAsync
+  // in server components; that source merges Supabase-stored posts too.
+  try {
+    return [...posts]
+      .filter((p) => !p.draft)
+      .sort(
+        (a, b) =>
+          new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
+      );
+  } catch {
+    return [];
+  }
+}
+
+/** Preferred: merges Supabase posts + legacy MDX files, published only. */
+export async function fetchAndSortBlogPostsAsync(): Promise<Blog[]> {
+  return getAllPosts();
+}
+
+export async function getRelatedBlogPosts(
   currentPost: Blog,
   maxResults: number = 3,
-): Blog[] {
-  const allPosts = fetchAndSortBlogPosts().filter(
+): Promise<Blog[]> {
+  const allPosts = (await fetchAndSortBlogPostsAsync()).filter(
     (post) => post.slug !== currentPost.slug,
   );
 
