@@ -238,7 +238,7 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
       role="navigation"
       aria-labelledby="toc-heading"
       className="toc-container"
-      style={{ top: `${topPosition}px` }}
+      style={{ top: `${topPosition}px`, right: `${rightPosition}px` }}
     >
       <div ref={contentRef} className="toc-content">
         <h2 id="toc-heading" className="toc-label">
