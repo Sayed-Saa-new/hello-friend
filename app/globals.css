@@ -176,14 +176,29 @@ article.prose code:not(pre code)::after,
   content: "" !important;
 }
 
-/* Tighten Fumadocs prose spacing — paragraphs, headings, lists.
-   MdxReveal wraps blocks in motion.div, so target direct div children too. */
+/* Blog article — Fraunces serif (same as /poem) + tight rhythm.
+   MdxReveal wraps each block in a motion.div; target those wrappers too
+   so we don't get compound spacing / phantom empty rectangles. */
+article.prose {
+  font-family: var(--font-poem), ui-serif, Georgia, "Times New Roman", serif;
+  font-feature-settings: "ss01", "ss02", "kern", "liga";
+  letter-spacing: -0.005em;
+}
+
+article.prose code,
+article.prose pre,
+article.prose kbd,
+article.prose samp {
+  font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0;
+}
+
 article.prose > p,
 article.prose > div > p,
 article.prose p {
-  margin-top: 0.85em;
-  margin-bottom: 0.85em;
-  line-height: 1.75;
+  margin-top: 0.7em;
+  margin-bottom: 0.7em;
+  line-height: 1.7;
 }
 
 article.prose > h1,
@@ -194,40 +209,56 @@ article.prose > div > h1,
 article.prose > div > h2,
 article.prose > div > h3,
 article.prose > div > h4 {
-  margin-top: 1.5em;
-  margin-bottom: 0.5em;
-  line-height: 1.25;
+  margin-top: 1.35em;
+  margin-bottom: 0.4em;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
 }
 
-article.prose > div,
-article.prose > div + div {
+/* Kill motion.div wrapper spacing + collapse empty paragraphs / stray <br> */
+article.prose > div {
   margin-top: 0;
   margin-bottom: 0;
 }
 
+article.prose p:empty,
+article.prose > div:empty,
+article.prose > div > p:empty {
+  display: none;
+}
+
+article.prose br {
+  display: block;
+  content: "";
+  margin: 0;
+  line-height: 0;
+}
+
 article.prose ul,
 article.prose ol {
-  margin-top: 0.5em;
-  margin-bottom: 0.85em;
+  margin-top: 0.4em;
+  margin-bottom: 0.7em;
   padding-left: 1.35rem;
 }
 
 article.prose li {
-  margin-top: 0.2em;
-  margin-bottom: 0.2em;
-  line-height: 1.65;
+  margin-top: 0.15em;
+  margin-bottom: 0.15em;
+  line-height: 1.6;
 }
 
 article.prose li > p {
-  margin-top: 0.15em;
-  margin-bottom: 0.15em;
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
 }
 
 article.prose li > ul,
 article.prose li > ol {
-  margin-top: 0.2em;
-  margin-bottom: 0.2em;
+  margin-top: 0.15em;
+  margin-bottom: 0.15em;
 }
+
+
 
 
 /* Wide layout utility for breaking out of blog content constraints while staying in grid */
