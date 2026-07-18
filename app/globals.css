@@ -130,10 +130,7 @@ iframe {
   }
 }
 
-.prose pre {
-  @apply drama-shadow mb-12 rounded-xl;
-}
-
+/* Legacy MDX renderer chrome (used by MdxCodeBlock for the changelog). */
 .code-frame {
   @apply flex h-9 items-center justify-between overflow-hidden rounded-t-xl border-b border-[#E2E3E5] bg-white px-4;
 }
@@ -158,76 +155,6 @@ iframe {
   @apply h-[10px] w-[10px] rounded-full bg-[#E2E3E5];
 }
 
-.prose pre code {
-  @apply py-0.5 leading-7;
-  counter-reset: sh-line-number;
-  letter-spacing: 0.1em;
-  font-size: 15px;
-}
-
-.prose code:not(pre code) {
-  font-size: 15px;
-  font-variant-ligatures: none;
-
-  --sh-class: #0f172a;
-  --sh-identifier: #0f172a;
-  --sh-sign: #0f172a;
-  --sh-property: #0f172a;
-  --sh-entity: #0f172a;
-  --sh-jsxliterals: #0f172a;
-  --sh-string: #0f172a;
-  --sh-keyword: #0f172a;
-  --sh-comment: #0f172a;
-}
-
-.prose code:not(pre code)::before,
-.prose code:not(pre code)::after {
-  content: "`";
-}
-
-.prose pre code .sh__line::before {
-  counter-increment: sh-line-number 1;
-  content: counter(sh-line-number);
-  margin-right: 24px;
-  text-align: right;
-  color: #cccccc;
-  font-size: 14px;
-}
-
-.prose code span {
-  @apply font-medium;
-}
-
-.prose img {
-  /* Don't apply styles to next/image */
-  @apply m-0;
-}
-
-.prose h2,
-.prose h3,
-.prose h4 {
-  @apply font-medium! tracking-tighter!;
-}
-
-.prose strong {
-  @apply font-medium;
-}
-
-.prose > :first-child {
-  /* Override removing top margin, causing layout shift */
-  margin-top: 1.25em !important;
-  margin-bottom: 1.25em !important;
-}
-
-.prose pre::-webkit-scrollbar {
-  display: none;
-}
-
-.prose pre {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
 /* Remove Safari input shadow on mobile */
 input[type="text"],
 input[type="email"] {
@@ -236,28 +163,10 @@ input[type="email"] {
   appearance: none;
 }
 
-.prose .tweet a {
-  text-decoration: inherit;
-  font-weight: 500;
-}
-
-.prose table {
-  display: block;
-  max-width: fit-content;
-  overflow-x: auto;
-  white-space: nowrap;
-}
-
-.prose .callout > p {
-  margin: 0 !important;
-}
-
 .title {
   text-wrap: balance;
 }
 
-.prose blockquote p {
-  margin: 0 !important;
 }
 
 /* Wide layout utility for breaking out of blog content constraints while staying in grid */
