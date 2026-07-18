@@ -1,6 +1,30 @@
 @import "tailwindcss";
-@config "../tailwind.config.ts";
+@import "fumadocs-ui/css/neutral.css";
+@import "fumadocs-ui/css/preset.css";
+@source "../node_modules/fumadocs-ui/dist/**/*.js";
 @plugin "@tailwindcss/typography";
+
+@theme {
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono);
+  --font-poem: var(--font-poem-serif), ui-serif, Georgia, serif;
+
+  --color-bg-primary: #F7F7F8;
+  --color-border-primary: #D6DADE;
+  --color-dark-primary: #3C3C3F;
+  --color-purple-primary: #6C47FF;
+  --color-purple-secondary: #E6E2F9;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #5E5F6E;
+  --color-text-tertiary: #A5AEB8;
+
+  --shadow-code-shadow: 0 0 0 1px rgba(14, 22, 34, 0.1), 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+  --animate-spin-slow: spin 14s linear infinite;
+}
+
+@source "./**/*.{ts,tsx}";
+@source "../content/**/*.mdx";
+@source "../public/**/*.svg";
 
 /* v3 compat: default border color was gray-200, in v4 it is currentColor */
 @layer base {
