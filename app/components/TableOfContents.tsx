@@ -8,9 +8,15 @@ interface TableOfContentsProps {
   headings: TocHeading[];
 }
 
-// X positions for SVG path (aligned with dot positions: -3 for H2, 11 for H3)
-const X_H2 = 0;
-const X_H3 = 14;
+// X positions for SVG path aligned with dot positions per heading level.
+// Kept in sync with .toc-link--hN padding-left in globals.css.
+const X_BY_LEVEL: Record<1 | 2 | 3 | 4, number> = {
+  1: -6,
+  2: 0,
+  3: 14,
+  4: 28,
+};
+
 
 /**
  * Generate SVG path that traces the TOC structure with indents for H3s
